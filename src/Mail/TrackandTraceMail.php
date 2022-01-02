@@ -11,7 +11,8 @@ use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
 
 class TrackandTraceMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct(MontaportalOrder $montaPortalOrder)
     {

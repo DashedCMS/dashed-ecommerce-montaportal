@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Qubiqx\Montapacking\Client;
 use Qubiqx\QcommerceCore\Classes\Mails;
 use Qubiqx\QcommerceCore\Classes\Sites;
-use Qubiqx\QcommerceCore\Mail\NotificationMail;
 use Qubiqx\QcommerceCore\Models\Customsetting;
-use Qubiqx\QcommerceEcommerceCore\Models\Order;
 use Qubiqx\QcommerceEcommerceCore\Models\OrderLog;
 use Qubiqx\QcommerceEcommerceCore\Models\Product;
 use Qubiqx\QcommerceEcommerceMontaportal\Mail\TrackandTraceMail;
@@ -22,7 +20,7 @@ class Montaportal
 {
     public static function isConnected($siteId = null)
     {
-        if (!$siteId) {
+        if (! $siteId) {
             $siteId = Sites::getActive();
         }
 
@@ -38,7 +36,7 @@ class Montaportal
 
     public static function initialize($siteId = null)
     {
-        if (!$siteId) {
+        if (! $siteId) {
             $siteId = Sites::getActive();
         }
 
@@ -47,7 +45,7 @@ class Montaportal
 
     public static function createProduct(Product $product)
     {
-        if (!$product->ean) {
+        if (! $product->ean) {
             return false;
         }
 
@@ -63,7 +61,7 @@ class Montaportal
                 'Barcodes' => [$product->ean],
             ]);
 
-            if (!$response->Sku) {
+            if (! $response->Sku) {
                 Mails::sendNotificationToAdmins('Product #' . $product->id . ' failed to push to Montapackage');
             } else {
                 $montaportalProduct = new MontaportalProduct();
@@ -82,7 +80,7 @@ class Montaportal
 
     public static function updateProduct(Product $product)
     {
-        if (!$product->montaPortalProduct) {
+        if (! $product->montaPortalProduct) {
             return;
         }
 
@@ -93,7 +91,7 @@ class Montaportal
             foreach ($montaProduct->Barcodes as $barcode) {
                 $barcodes[] = $barcode;
             }
-            if (!in_array($product->ean, $barcodes)) {
+            if (! in_array($product->ean, $barcodes)) {
                 $barcodes[] = $product->ean;
             }
 
@@ -101,7 +99,7 @@ class Montaportal
                 'Barcodes' => $barcodes,
             ]);
 
-            if (!$response->Sku) {
+            if (! $response->Sku) {
             } else {
                 $product->montaPortalProduct->montaportal_id = $response->Sku;
                 $product->montaPortalProduct->save();
@@ -115,7 +113,7 @@ class Montaportal
 
     public static function syncProductStock(Product $product)
     {
-        if (!$product->montaPortalProduct || !$product->montaPortalProduct->sync_stock) {
+        if (! $product->montaPortalProduct || ! $product->montaPortalProduct->sync_stock) {
             return;
         }
 
@@ -133,7 +131,7 @@ class Montaportal
 
     public static function deleteProduct(Product $product)
     {
-        if (!$product->montaPortalProduct) {
+        if (! $product->montaPortalProduct) {
             return;
         }
 
@@ -200,6 +198,7 @@ class Montaportal
                 $orderLog = new OrderLog();
                 $orderLog->order_id = $montaportalOrder->order->id;
                 $orderLog->user_id = null;
+
                 try {
                     Mail::to($montaportalOrder->order->email)->send(new TrackandTraceMail($montaportalOrder));
                     $orderLog->tag = 'order.t&t.send';
@@ -222,12 +221,12 @@ class Montaportal
 
             $allProductsPushedToEfulfillment = true;
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
-                if (!$orderProduct->product->montaPortalProduct) {
+                if (! $orderProduct->product->montaPortalProduct) {
                     $allProductsPushedToEfulfillment = false;
                 }
             }
 
-            if (!$allProductsPushedToEfulfillment && $montaPortalOrder->order->montaPortalOrder->pushed_to_montaportal != 2) {
+            if (! $allProductsPushedToEfulfillment && $montaPortalOrder->order->montaPortalOrder->pushed_to_montaportal != 2) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal because not all products are pushed to Montaportal');
                 $montaPortalOrder->pushed_to_montaportal = 2;
                 $montaPortalOrder->save();

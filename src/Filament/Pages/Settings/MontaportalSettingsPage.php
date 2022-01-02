@@ -9,12 +9,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
-use Illuminate\Support\Facades\Mail;
 use Qubiqx\QcommerceCore\Classes\Sites;
 use Qubiqx\QcommerceCore\Models\Customsetting;
 use Qubiqx\QcommerceEcommerceMontaportal\Classes\Montaportal;
-use Qubiqx\QcommerceEcommerceMontaportal\Mail\TrackandTraceMail;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
 
 class MontaportalSettingsPage extends Page implements HasForms
 {

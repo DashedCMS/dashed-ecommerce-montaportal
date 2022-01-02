@@ -3,8 +3,6 @@
 namespace Qubiqx\QcommerceEcommerceMontaportal\Listeners;
 
 use Qubiqx\QcommerceEcommerceCore\Events\Orders\OrderMarkedAsPaidEvent;
-use Qubiqx\QcommerceEcommerceEfulfillmentshop\Classes\EfulfillmentShop;
-use Qubiqx\QcommerceEcommerceEfulfillmentshop\Models\EfulfillmentshopOrder;
 use Qubiqx\QcommerceEcommerceMontaportal\Classes\Montaportal;
 
 class MarkOrderAsPushableListener

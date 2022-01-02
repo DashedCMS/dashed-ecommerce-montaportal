@@ -21,7 +21,7 @@ class MontaportalOrder extends Model
         'montaportal_pre_order_ids',
         'track_and_trace_links',
         'track_and_trace_present',
-        'error'
+        'error',
     ];
 
     protected $dates = [
@@ -31,7 +31,7 @@ class MontaportalOrder extends Model
 
     protected $casts = [
         'montaportal_pre_order_ids' => 'array',
-        'track_and_trace_links' => 'array'
+        'track_and_trace_links' => 'array',
     ];
 
     public function order()
