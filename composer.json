@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "qubiqx/qcommerce-ecommerce-montaportal",
+    "description": "This is my package qcommerce-ecommerce-montaportal",
     "keywords": [
-        ":vendor_name",
+        "Qubiqx",
         "laravel",
-        ":package_slug"
+        "qcommerce-ecommerce-montaportal"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/qubiqx/qcommerce-ecommerce-montaportal",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Robin van Maasakker",
+            "email": "robin@qubiqx.com",
             "role": "Developer"
         }
     ],
@@ -22,25 +22,22 @@
     },
     "require-dev": {
         "nunomaduro/collision": "^5.10",
-        "nunomaduro/larastan": "^1.0",
         "orchestra/testbench": "^6.22",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5",
-        "spatie/laravel-ray": "^1.26"
+        "spatie/laravel-ray": "^1.26",
+        "qubiqx/montapacking": "*"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Qubiqx\\QcommerceEcommerceMontaportal\\": "src",
+            "Qubiqx\\QcommerceEcommerceMontaportal\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Qubiqx\\QcommerceEcommerceMontaportal\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +51,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Qubiqx\\QcommerceEcommerceMontaportal\\QcommerceEcommerceMontaportalServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "QcommerceEcommerceMontaportal": "Qubiqx\\QcommerceEcommerceMontaportal\\Facades\\QcommerceEcommerceMontaportal"
             }
         }
     },
