@@ -5,6 +5,7 @@ namespace Qubiqx\QcommerceEcommerceMontaportal\Listeners;
 use Qubiqx\QcommerceEcommerceCore\Events\Orders\OrderMarkedAsPaidEvent;
 use Qubiqx\QcommerceEcommerceEfulfillmentshop\Classes\EfulfillmentShop;
 use Qubiqx\QcommerceEcommerceEfulfillmentshop\Models\EfulfillmentshopOrder;
+use Qubiqx\QcommerceEcommerceMontaportal\Classes\Montaportal;
 
 class MarkOrderAsPushableListener
 {
@@ -26,10 +27,8 @@ class MarkOrderAsPushableListener
      */
     public function handle(OrderMarkedAsPaidEvent $event)
     {
-        if (EfulfillmentShop::isConnected($event->order->site_id)) {
-            $eshopOrder = new EfulfillmentshopOrder();
-            $eshopOrder->order_id = $event->order->id;
-            $eshopOrder->save();
+        if (Montaportal::isConnected($event->order->site_id)) {
+            $event->order->montaPortalOrder()->create([]);
         }
     }
 }

@@ -51,7 +51,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Qubiqx\\QcommerceEcommerceMontaportal\\QcommerceEcommerceMontaportalServiceProvider"
+                "Qubiqx\\QcommerceEcommerceMontaportal\\QcommerceEcommerceMontaportalServiceProvider",
+                "Qubiqx\\QcommerceEcommerceMontaportal\\QcommerceEcommerceMontaportalEventServiceProvider"
             ],
             "aliases": {
                 "QcommerceEcommerceMontaportal": "Qubiqx\\QcommerceEcommerceMontaportal\\Facades\\QcommerceEcommerceMontaportal"

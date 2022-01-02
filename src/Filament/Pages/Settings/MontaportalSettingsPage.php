@@ -9,9 +9,12 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
+use Illuminate\Support\Facades\Mail;
 use Qubiqx\QcommerceCore\Classes\Sites;
 use Qubiqx\QcommerceCore\Models\Customsetting;
 use Qubiqx\QcommerceEcommerceMontaportal\Classes\Montaportal;
+use Qubiqx\QcommerceEcommerceMontaportal\Mail\TrackandTraceMail;
+use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
 
 class MontaportalSettingsPage extends Page implements HasForms
 {
@@ -27,9 +30,9 @@ class MontaportalSettingsPage extends Page implements HasForms
         $formData = [];
         $sites = Sites::getSites();
         foreach ($sites as $site) {
-            $formData["montaportal_connected_{$site['id']}"] = Customsetting::get('montaportal_connected', $site['id'], 0) ? true : false;
             $formData["montaportal_username_{$site['id']}"] = Customsetting::get('montaportal_username', $site['id']);
             $formData["montaportal_password_{$site['id']}"] = Customsetting::get('montaportal_password', $site['id']);
+            $formData["montaportal_connected_{$site['id']}"] = Customsetting::get('montaportal_connected', $site['id'], 0) ? true : false;
         }
 
         $this->form->fill($formData);
@@ -51,7 +54,7 @@ class MontaportalSettingsPage extends Page implements HasForms
                         'lg' => 2,
                     ]),
                 Placeholder::make('label')
-                    ->label("Montaportal is " . (! Customsetting::get('efulfillment_shop_connected', $site['id'], 0) ? 'niet' : '') . ' geconnect')
+                    ->label("Montaportal is " . (! Customsetting::get('montaportal_connected', $site['id'], 0) ? 'niet' : '') . ' geconnect')
                     ->content(Customsetting::get('montaportal_connection_error', $site['id'], ''))
                     ->columnSpan([
                         'default' => 1,

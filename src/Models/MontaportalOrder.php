@@ -1,27 +1,27 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceEfulfillmentshop\Models;
+namespace Qubiqx\QcommerceEcommerceMontaportal\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Qubiqx\QcommerceEcommerceCore\Models\Order;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class EfulfillmentshopOrder extends Model
+class MontaportalOrder extends Model
 {
     use LogsActivity;
 
     protected static $logFillable = true;
 
-    protected $table = 'qcommerce__order_efulfillmentshop';
+    protected $table = 'qcommerce__order_montaportal';
 
     protected $fillable = [
         'order_id',
-        'invoice_address_id',
-        'shipping_address_id',
-        'sale_id',
-        'track_and_trace',
-        'fulfillment_status',
-        'error',
+        'montaportal_id',
+        'pushed_to_montaportal',
+        'montaportal_pre_order_ids',
+        'track_and_trace_links',
+        'track_and_trace_present',
+        'error'
     ];
 
     protected $dates = [
@@ -30,7 +30,8 @@ class EfulfillmentshopOrder extends Model
     ];
 
     protected $casts = [
-      'track_and_trace' => 'array',
+        'montaportal_pre_order_ids' => 'array',
+        'track_and_trace_links' => 'array'
     ];
 
     public function order()

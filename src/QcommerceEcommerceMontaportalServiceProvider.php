@@ -4,7 +4,15 @@ namespace Qubiqx\QcommerceEcommerceMontaportal;
 
 use Filament\PluginServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use Qubiqx\QcommerceEcommerceCore\Models\Order;
+use Qubiqx\QcommerceEcommerceCore\Models\Product;
+use Qubiqx\QcommerceEcommerceMontaportal\Commands\PushOrdersToMontaportalCommand;
+use Qubiqx\QcommerceEcommerceMontaportal\Commands\PushProductsToMontaportal;
+use Qubiqx\QcommerceEcommerceMontaportal\Commands\SyncProductStockWithMontaportal;
+use Qubiqx\QcommerceEcommerceMontaportal\Commands\UpdateOrdersToMontaportalCommand;
 use Qubiqx\QcommerceEcommerceMontaportal\Filament\Pages\Settings\MontaportalSettingsPage;
+use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
+use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalProduct;
 use Spatie\LaravelPackageTools\Package;
 
 class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
@@ -15,14 +23,18 @@ class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
     {
         $this->app->booted(function () {
             $schedule = app(Schedule::class);
-//            $schedule->command(PushProductsToEfulfillmentShopCommand::class)->everyFiveMinutes();
-//            $schedule->command(PushOrdersToEfulfillmentShopCommand::class)->everyFiveMinutes();
-//            $schedule->command(UpdateOrdersFromEfulfillmentShopCommand::class)->everyFiveMinutes();
+            $schedule->command(PushProductsToMontaportal::class)->everyFiveMinutes();
+            $schedule->command(SyncProductStockWithMontaportal::class)->everyFiveMinutes();
+            $schedule->command(PushOrdersToMontaportalCommand::class)->everyFiveMinutes();
+            $schedule->command(UpdateOrdersToMontaportalCommand::class)->everyFifteenMinutes();
         });
 
-//        Product::addDynamicRelation('efulfillmentShopProduct', function (Product $model) {
-//            return $model->hasOne(EfulfillmentshopProduct::class);
-//        });
+        Order::addDynamicRelation('montaPortalOrder', function (Order $model) {
+            return $model->hasOne(MontaportalOrder::class);
+        });
+        Product::addDynamicRelation('montaportalProduct', function (Product $model) {
+            return $model->hasOne(MontaportalProduct::class);
+        });
     }
 
     public function configurePackage(Package $package): void
@@ -45,9 +57,10 @@ class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
             ->name('qcommerce-ecommerce-montaportal')
             ->hasViews()
             ->hasCommands([
-//                PushOrdersToEfulfillmentShopCommand::class,
-//                UpdateOrdersFromEfulfillmentShopCommand::class,
-//                PushProductsToEfulfillmentShopCommand::class,
+                PushProductsToMontaportal::class,
+                SyncProductStockWithMontaportal::class,
+                PushOrdersToMontaportalCommand::class,
+                UpdateOrdersToMontaportalCommand::class,
             ]);
     }
 
