@@ -20,20 +20,20 @@ class EditMontaportalProduct extends Component
 
     public function submit()
     {
-        if (!$this->product->montaPortalproduct) {
+        if (! $this->product->montaPortalproduct) {
             $this->emit('notify', [
                 'status' => 'error',
-                'message' => 'De bestelling mag niet naar Montaportal gepushed worden.'
+                'message' => 'De bestelling mag niet naar Montaportal gepushed worden.',
             ]);
         } elseif ($this->product->montaPortalproduct->pushed_to_montaportal == 1) {
             $this->emit('notify', [
                 'status' => 'error',
-                'message' => 'De bestelling is al naar Montaportal gepushed.'
+                'message' => 'De bestelling is al naar Montaportal gepushed.',
             ]);
         } elseif ($this->product->montaPortalproduct->pushed_to_montaportal == 0) {
             $this->emit('notify', [
                 'status' => 'error',
-                'message' => 'De bestelling wordt al naar Montaportal gepushed.'
+                'message' => 'De bestelling wordt al naar Montaportal gepushed.',
             ]);
         }
 
@@ -43,7 +43,7 @@ class EditMontaportalProduct extends Component
         $this->emit('refreshPage');
         $this->emit('notify', [
             'status' => 'success',
-            'message' => 'De bestelling wordt binnen enkele minuten opnieuw naar Montaportal gepushed.'
+            'message' => 'De bestelling wordt binnen enkele minuten opnieuw naar Montaportal gepushed.',
         ]);
     }
 }

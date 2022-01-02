@@ -4,25 +4,12 @@ namespace Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources;
 
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Placeholder;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
-use Filament\Tables\Columns\TextColumn;
-use Qubiqx\QcommerceCore\Classes\Sites;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\MultiSelect;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
 use Filament\Tables\Columns\BooleanColumn;
-use Filament\Resources\Concerns\Translatable;
-use Qubiqx\QcommerceEcommerceCore\Models\PaymentMethod;
-use Qubiqx\QcommerceEcommerceCore\Filament\Resources\PaymentMethodResource\Pages\EditPaymentMethod;
-use Qubiqx\QcommerceEcommerceCore\Filament\Resources\PaymentMethodResource\Pages\ListPaymentMethods;
-use Qubiqx\QcommerceEcommerceCore\Filament\Resources\PaymentMethodResource\Pages\CreatePaymentMethod;
+use Filament\Tables\Columns\TextColumn;
 use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\EditMontaportalProduct;
 use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\ListMontaportalProducts;
 use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalProduct;
@@ -52,7 +39,7 @@ class MontaportalProductResource extends Resource
                 Card::make()
                     ->schema([
                         Placeholder::make('')
-                        ->content(fn($record) => 'Bewerk instellingen voor Montaportal voor product ' . $record->product->name),
+                        ->content(fn ($record) => 'Bewerk instellingen voor Montaportal voor product ' . $record->product->name),
                         Toggle::make('sync_stock')
                             ->label('Sync voorraad'),
                     ]),
