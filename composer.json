@@ -18,7 +18,8 @@
     "require": {
         "php": "^8.0",
         "spatie/laravel-package-tools": "^1.9.2",
-        "illuminate/contracts": "^8.73"
+        "illuminate/contracts": "^8.73",
+        "qubiqx/montapacking": "*"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.10",
@@ -26,8 +27,7 @@
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.1",
         "phpunit/phpunit": "^9.5",
-        "spatie/laravel-ray": "^1.26",
-        "qubiqx/montapacking": "*"
+        "spatie/laravel-ray": "^1.26"
     },
     "autoload": {
         "psr-4": {

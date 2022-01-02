@@ -13,7 +13,7 @@ use Qubiqx\QcommerceEcommerceCore\Models\Product;
 
 class Montaportal
 {
-    public static function connected($siteId = null)
+    public static function isConnected($siteId = null)
     {
         if (! $siteId) {
             $siteId = Sites::getActive();

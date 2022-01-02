@@ -12,6 +12,7 @@ use Filament\Pages\Page;
 use Qubiqx\QcommerceCore\Classes\Sites;
 use Qubiqx\QcommerceCore\Models\Customsetting;
 use Qubiqx\QcommerceEcommerceEfulfillmentshop\Classes\EfulfillmentShop;
+use Qubiqx\QcommerceEcommerceMontaportal\Classes\Montaportal;
 
 class MontaportalSettingsPage extends Page implements HasForms
 {
@@ -57,12 +58,12 @@ class MontaportalSettingsPage extends Page implements HasForms
                         'default' => 1,
                         'lg' => 2,
                     ]),
-                TextInput::make("montaportal_connected_{$site['id']}")
+                TextInput::make("montaportal_username_{$site['id']}")
                     ->label('Gebruikersnaam')
                     ->rules([
                         'max:255',
                     ]),
-                TextInput::make("montaportal_username_{$site['id']}")
+                TextInput::make("montaportal_password_{$site['id']}")
                     ->label('Wachtwoord')
                     ->type('password')
                     ->rules([
@@ -89,13 +90,13 @@ class MontaportalSettingsPage extends Page implements HasForms
         $sites = Sites::getSites();
 
         foreach ($sites as $site) {
-            Customsetting::set('montaportal_connected', $this->form->getState()["montaportal_connected_{$site['id']}"], $site['id']);
             Customsetting::set('montaportal_username', $this->form->getState()["montaportal_username_{$site['id']}"], $site['id']);
-            Customsetting::set('montaportal_password', EfulfillmentShop::isConnected($site['id']), $site['id']);
+            Customsetting::set('montaportal_password', $this->form->getState()["montaportal_password_{$site['id']}"], $site['id']);
+            Customsetting::set('montaportal_connected', Montaportal::isConnected($site['id']), $site['id']);
         }
 
         $this->notify('success', 'De Montaportal instellingen zijn opgeslagen');
 
-        return redirect(EfulfillmentshopSettingsPage::getUrl());
+        return redirect(MontaportalSettingsPage::getUrl());
     }
 }
