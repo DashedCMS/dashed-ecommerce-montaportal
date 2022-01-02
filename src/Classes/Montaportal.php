@@ -2,11 +2,11 @@
 
 namespace Qubiqx\QcommerceEcommerceMontaportal\Classes;
 
-use Exception;
 use Carbon\Carbon;
-use Qubiqx\Montapacking\Client;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Qubiqx\Montapacking\Client;
 use Qubiqx\QcommerceCore\Classes\Sites;
 use Qubiqx\QcommerceCore\Models\Customsetting;
 use Qubiqx\QcommerceEcommerceCore\Models\Product;
@@ -15,13 +15,14 @@ class Montaportal
 {
     public static function connected($siteId = null)
     {
-        if (!$siteId) {
+        if (! $siteId) {
             $siteId = Sites::getActive();
         }
 
         try {
             $client = self::initialize($siteId);
             $response = $client->getHealth();
+
             return true;
         } catch (Exception $exception) {
             return false;
@@ -30,7 +31,7 @@ class Montaportal
 
     public static function initialize($siteId = null)
     {
-        if (!$siteId) {
+        if (! $siteId) {
             $siteId = Sites::getActive();
         }
 
@@ -50,6 +51,7 @@ class Montaportal
             if ($product->montaportalProduct) {
                 return true;
             }
+
             try {
                 $apiClient = self::initialize();
                 $response = $apiClient->addProduct([
@@ -58,7 +60,7 @@ class Montaportal
                     'Barcodes' => [$product->ean],
                 ]);
 
-                if (!$response->Sku) {
+                if (! $response->Sku) {
                     try {
                         $notificationInvoiceEmails = Customsetting::get('notification_invoice_emails', Sites::getActive(), '[]');
                         if ($notificationInvoiceEmails) {
@@ -74,6 +76,7 @@ class Montaportal
                     $montaportalProduct->montaportal_id = $response->Sku;
                     $montaportalProduct->save();
                 }
+
                 return true;
             } catch (Exception $firstE) {
                 try {
@@ -85,6 +88,7 @@ class Montaportal
                     }
                 } catch (\Exception $e) {
                 }
+
                 return false;
             }
         }
@@ -92,7 +96,7 @@ class Montaportal
 
     public static function updateProduct(Product $product)
     {
-        if (!$product->montaPortalProduct) {
+        if (! $product->montaPortalProduct) {
             return;
         }
 
@@ -103,7 +107,7 @@ class Montaportal
             foreach ($montaProduct->Barcodes as $barcode) {
                 $barcodes[] = $barcode;
             }
-            if (!in_array($product->ean, $barcodes)) {
+            if (! in_array($product->ean, $barcodes)) {
                 $barcodes[] = $product->ean;
             }
 
@@ -111,11 +115,12 @@ class Montaportal
                 'Barcodes' => $barcodes,
             ]);
 
-            if (!$response->Sku) {
+            if (! $response->Sku) {
             } else {
                 $product->montaPortalProduct->montaportal_id = $response->Sku;
                 $product->montaPortalProduct->save();
             }
+
             return true;
         } catch (Exception $e) {
             return false;
@@ -124,7 +129,7 @@ class Montaportal
 
     public static function syncProductStock(Product $product)
     {
-        if (!$product->montaPortalProduct || !$product->montaPortalProduct->sync_stock) {
+        if (! $product->montaPortalProduct || ! $product->montaPortalProduct->sync_stock) {
             return;
         }
 
@@ -142,7 +147,7 @@ class Montaportal
 
     public static function deleteProduct(Product $product)
     {
-        if (!$product->montaPortalProduct) {
+        if (! $product->montaPortalProduct) {
             return;
         }
 
@@ -166,7 +171,7 @@ class Montaportal
 
     public static function updateTrackandTrace(Order $order): void
     {
-        if (!$order->montaPortalOrder || $order->montaPortalOrder->pushed_to_montaportal != 1 || $order->montaPortalOrder->track_and_trace_present) {
+        if (! $order->montaPortalOrder || $order->montaPortalOrder->pushed_to_montaportal != 1 || $order->montaPortalOrder->track_and_trace_present) {
             return;
         }
 
@@ -234,7 +239,7 @@ class Montaportal
 
     public static function createOrder(Order $order)
     {
-        if (!$order->montaPortalOrder || $order->montaPortalOrder->pushed_to_montaportal == 1) {
+        if (! $order->montaPortalOrder || $order->montaPortalOrder->pushed_to_montaportal == 1) {
             return;
         }
 
@@ -243,12 +248,12 @@ class Montaportal
 
             $allProductsPushedToEfulfillment = true;
             foreach ($order->orderProductsWithProduct as $orderProduct) {
-                if (!$orderProduct->product->montaPortalProduct) {
+                if (! $orderProduct->product->montaPortalProduct) {
                     $allProductsPushedToEfulfillment = false;
                 }
             }
 
-            if (!$allProductsPushedToEfulfillment && $order->montaPortalOrder->pushed_to_montaportal != 2) {
+            if (! $allProductsPushedToEfulfillment && $order->montaPortalOrder->pushed_to_montaportal != 2) {
                 try {
                     $notificationInvoiceEmails = Customsetting::get('notification_invoice_emails', Sites::getActive(), '[]');
                     if ($notificationInvoiceEmails) {
@@ -393,6 +398,7 @@ class Montaportal
                 $order->montaPortalOrder->pushed_to_montaportal = 2;
                 $order->montaPortalOrder->save();
             }
+
             return false;
         }
     }
