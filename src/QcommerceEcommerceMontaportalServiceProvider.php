@@ -61,20 +61,12 @@ class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
             ])
         );
 
-        ecommerce()->builder(
-            'orderSideWidgets',
-            array_merge(ecommerce()->builder('orderSideWidgets'), [
+        ecommerce()->widgets(
+            'orders',
+            array_merge(ecommerce()->widgets('orders'), [
                 'show-montaportal-order' => [
                     'name' => 'show-montaportal-order',
-                ],
-            ])
-        );
-
-        ecommerce()->builder(
-            'productWidgets',
-            array_merge(ecommerce()->builder('productWidgets'), [
-                'edit-montaportal-product' => [
-                    'name' => 'edit-montaportal-product',
+                    'width' => 'sidebar'
                 ],
             ])
         );
