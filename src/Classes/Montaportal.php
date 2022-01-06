@@ -14,7 +14,7 @@ use Qubiqx\QcommerceEcommerceCore\Models\OrderLog;
 use Qubiqx\QcommerceEcommerceCore\Models\Product;
 use Qubiqx\QcommerceEcommerceMontaportal\Mail\TrackandTraceMail;
 use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalProduct;
+use Qubiqx\QcommerceEcommerceMontaportal\Models\montaportalProduct;
 
 class Montaportal
 {
@@ -64,7 +64,7 @@ class Montaportal
             if (! $response->Sku) {
                 Mails::sendNotificationToAdmins('Product #' . $product->id . ' failed to push to Montapackage');
             } else {
-                $montaportalProduct = new MontaportalProduct();
+                $montaportalProduct = new montaportalProduct();
                 $montaportalProduct->product_id = $product->id;
                 $montaportalProduct->montaportal_id = $response->Sku;
                 $montaportalProduct->save();
@@ -80,13 +80,13 @@ class Montaportal
 
     public static function updateProduct(Product $product)
     {
-        if (! $product->montaPortalProduct) {
+        if (! $product->montaportalProduct) {
             return;
         }
 
         try {
             $apiClient = self::initialize();
-            $montaProduct = $apiClient->getProduct($product->montaPortalProduct->montaportal_id);
+            $montaProduct = $apiClient->getProduct($product->montaportalProduct->montaportal_id);
             $barcodes = [];
             foreach ($montaProduct->Barcodes as $barcode) {
                 $barcodes[] = $barcode;
@@ -101,8 +101,8 @@ class Montaportal
 
             if (! $response->Sku) {
             } else {
-                $product->montaPortalProduct->montaportal_id = $response->Sku;
-                $product->montaPortalProduct->save();
+                $product->montaportalProduct->montaportal_id = $response->Sku;
+                $product->montaportalProduct->save();
             }
 
             return true;
@@ -113,13 +113,13 @@ class Montaportal
 
     public static function syncProductStock(Product $product)
     {
-        if (! $product->montaPortalProduct || ! $product->montaPortalProduct->sync_stock) {
+        if (! $product->montaportalProduct || ! $product->montaportalProduct->sync_stock) {
             return;
         }
 
         try {
             $apiClient = self::initialize();
-            $response = $apiClient->getProductStock($product->montaPortalProduct->montaportal_id);
+            $response = $apiClient->getProductStock($product->montaportalProduct->montaportal_id);
             $stock = $response->Stock->StockAvailable;
             $product->stock = $stock;
             $product->save();
@@ -131,15 +131,15 @@ class Montaportal
 
     public static function deleteProduct(Product $product)
     {
-        if (! $product->montaPortalProduct) {
+        if (! $product->montaportalProduct) {
             return;
         }
 
         try {
             $apiClient = self::initialize();
-            $response = $apiClient->deleteProduct($product->montaPortalProduct->montaportal_id);
+            $response = $apiClient->deleteProduct($product->montaportalProduct->montaportal_id);
 
-            $product->montaPortalProduct->delete();
+            $product->montaportalProduct->delete();
         } catch (Exception $e) {
             Mails::sendNotificationToAdmins('Product #' . $product->id . ' failed to delete product from Montapackage with error: ' . $e->getMessage());
         }
@@ -221,7 +221,7 @@ class Montaportal
 
             $allProductsPushedToEfulfillment = true;
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
-                if (! $orderProduct->product->montaPortalProduct) {
+                if (! $orderProduct->product->montaportalProduct) {
                     $allProductsPushedToEfulfillment = false;
                 }
             }
@@ -238,13 +238,13 @@ class Montaportal
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
                 if ($orderProduct->is_pre_order && $orderProduct->pre_order_restocked_date && Carbon::parse($orderProduct->pre_order_date) > Carbon::now()->endOfDay()) {
                     $preOrderedOrderedProducts[] = [
-                        'Sku' => $orderProduct->product->montaPortalProduct->montaportal_id,
+                        'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
                         'OrderedQuantity' => $orderProduct->quantity,
                         'preOrderDate' => Carbon::parse($orderProduct->pre_order_restocked_date)->format('d-m-Y'),
                     ];
                 } else {
                     $orderedProducts[] = [
-                        'Sku' => $orderProduct->product->montaPortalProduct->montaportal_id,
+                        'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
                         'OrderedQuantity' => $orderProduct->quantity,
                     ];
                 }
