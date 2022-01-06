@@ -66,7 +66,7 @@ class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
             array_merge(ecommerce()->widgets('orders'), [
                 'show-montaportal-order' => [
                     'name' => 'show-montaportal-order',
-                    'width' => 'sidebar'
+                    'width' => 'sidebar',
                 ],
             ])
         );
