@@ -25,13 +25,6 @@ class MontaportalProductResource extends Resource
     protected static ?string $pluralLabel = 'Montaportal producten';
     protected static ?int $navigationSort = 10;
 
-    public static function getGloballySearchableAttributes(): array
-    {
-        return [
-            'name',
-        ];
-    }
-
     public static function form(Form $form): Form
     {
         return $form
