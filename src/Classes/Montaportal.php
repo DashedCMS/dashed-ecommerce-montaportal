@@ -254,7 +254,7 @@ class Montaportal
 
             if ($orderedProducts) {
                 $data = [
-                    'WebshopOrderId' => $montaPortalOrder->order->id . '-dupe',
+                    'WebshopOrderId' => $montaPortalOrder->order->id,
                     'ConsumerDetails' => [
                         'DeliveryAddress' => [
                             'LastName' => $montaPortalOrder->order->name,
