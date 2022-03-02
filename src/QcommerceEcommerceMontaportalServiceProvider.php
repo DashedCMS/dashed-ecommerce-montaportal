@@ -2,23 +2,23 @@
 
 namespace Qubiqx\QcommerceEcommerceMontaportal;
 
-use Livewire\Livewire;
 use Filament\PluginServiceProvider;
-use Spatie\LaravelPackageTools\Package;
 use Illuminate\Console\Scheduling\Schedule;
+use Livewire\Livewire;
 use Qubiqx\QcommerceEcommerceCore\Models\Order;
 use Qubiqx\QcommerceEcommerceCore\Models\Product;
+use Qubiqx\QcommerceEcommerceMontaportal\Commands\PushOrdersToMontaportalCommand;
+use Qubiqx\QcommerceEcommerceMontaportal\Commands\PushProductsToMontaportal;
+use Qubiqx\QcommerceEcommerceMontaportal\Commands\SyncProductStockWithMontaportal;
+use Qubiqx\QcommerceEcommerceMontaportal\Commands\UpdateOrdersToMontaportalCommand;
+use Qubiqx\QcommerceEcommerceMontaportal\Filament\Pages\Settings\MontaportalSettingsPage;
+use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource;
+use Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets\MontaportalOrderStats;
+use Qubiqx\QcommerceEcommerceMontaportal\Livewire\Orders\ShowMontaportalOrder;
+use Qubiqx\QcommerceEcommerceMontaportal\Livewire\Products\EditMontaportalProduct;
 use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
 use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalProduct;
-use Qubiqx\QcommerceEcommerceMontaportal\Commands\PushProductsToMontaportal;
-use Qubiqx\QcommerceEcommerceMontaportal\Livewire\Orders\ShowMontaportalOrder;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets\MontaportalOrderStats;
-use Qubiqx\QcommerceEcommerceMontaportal\Commands\PushOrdersToMontaportalCommand;
-use Qubiqx\QcommerceEcommerceMontaportal\Commands\SyncProductStockWithMontaportal;
-use Qubiqx\QcommerceEcommerceMontaportal\Livewire\Products\EditMontaportalProduct;
-use Qubiqx\QcommerceEcommerceMontaportal\Commands\UpdateOrdersToMontaportalCommand;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Pages\Settings\MontaportalSettingsPage;
+use Spatie\LaravelPackageTools\Package;
 
 class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
 {
