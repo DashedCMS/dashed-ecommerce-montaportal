@@ -40,7 +40,12 @@ class PushProductsToMontaportal extends Command
     public function handle()
     {
 //        if (env('APP_ENV') != 'local') {
-        $products = Product::publicShowable()->get();
+        $products = Product::thisSite()
+            ->where('sku', '!=', null)
+            ->where('price', '!=', null)
+            ->notParentProduct()
+            ->get();
+
         foreach ($products as $product) {
             $success = Montaportal::createProduct($product);
             if ($success) {
