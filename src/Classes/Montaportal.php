@@ -254,7 +254,7 @@ class Montaportal
 
             if ($orderedProducts) {
                 $data = [
-                    'WebshopOrderId' => $montaPortalOrder->order->id,
+                    'WebshopOrderId' => $montaPortalOrder->order->invoice_id,
                     'ConsumerDetails' => [
                         'DeliveryAddress' => [
                             'LastName' => $montaPortalOrder->order->name,
@@ -286,7 +286,7 @@ class Montaportal
                         'OrderedQuantity' => $preOrderedOrderedProduct['OrderedQuantity'],
                     ];
 
-                    $orderId = $montaPortalOrder->order->id . '-pre-order-' . $preOrderedOrderedProduct['Sku'];
+                    $orderId = $montaPortalOrder->order->invoice_id . '-pre-order-' . $preOrderedOrderedProduct['Sku'];
                     $efulfillmentPreOrderIds[] = $orderId;
                     $data = [
                         'WebshopOrderId' => $orderId,
