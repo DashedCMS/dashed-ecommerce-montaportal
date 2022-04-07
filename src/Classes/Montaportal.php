@@ -219,7 +219,7 @@ class Montaportal
 
 //        try {
         $apiClient = self::initialize();
-        $efulfillmentOrder = $apiClient->getOrder($montaportalOrder->order->id);
+        $efulfillmentOrder = $apiClient->getOrder($order->montaPortalOrder->montaportal_id);
         dd($efulfillmentOrder);
 //        } catch (Exception $e) {
 //        }
