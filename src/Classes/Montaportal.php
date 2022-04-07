@@ -220,7 +220,11 @@ class Montaportal
         $allOrdersDelivered = true;
 
         $apiClient = self::initialize();
-        $efulfillmentOrder = $apiClient->getOrder($order->montaPortalOrder->montaportal_id);
+        try {
+            $efulfillmentOrder = $apiClient->getOrder($order->montaPortalOrder->montaportal_id);
+        } catch (Exception $e) {
+            return;
+        }
         if (!$efulfillmentOrder->Shipped) {
             $allOrdersShipped = false;
         }
@@ -230,7 +234,11 @@ class Montaportal
 
         if ($order->montaPortalOrder->montaportal_pre_order_ids) {
             foreach ($order->montaPortalOrder->montaportal_pre_order_ids as $preOrderId) {
-                $efulfillmentOrder = $apiClient->getOrder($preOrderId);
+                try {
+                    $efulfillmentOrder = $apiClient->getOrder($preOrderId);
+                } catch (Exception $e) {
+                    return;
+                }
                 if (!$efulfillmentOrder->Shipped) {
                     $allOrdersShipped = false;
                 }
