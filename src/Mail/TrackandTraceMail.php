@@ -6,8 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Qubiqx\QcommerceCore\Models\Customsetting;
-use Qubiqx\QcommerceTranslations\Models\Translation;
 use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
+use Qubiqx\QcommerceTranslations\Models\Translation;
 
 class TrackandTraceMail extends Mailable
 {

@@ -3,8 +3,8 @@
 namespace Qubiqx\QcommerceEcommerceMontaportal\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Qubiqx\QcommerceEcommerceCore\Models\Order;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class MontaportalOrder extends Model
 {

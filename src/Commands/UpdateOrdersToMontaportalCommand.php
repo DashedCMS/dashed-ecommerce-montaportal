@@ -5,7 +5,6 @@ namespace Qubiqx\QcommerceEcommerceMontaportal\Commands;
 use Illuminate\Console\Command;
 use Qubiqx\QcommerceEcommerceCore\Models\Order;
 use Qubiqx\QcommerceEcommerceMontaportal\Classes\Montaportal;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
 
 class UpdateOrdersToMontaportalCommand extends Command
 {
