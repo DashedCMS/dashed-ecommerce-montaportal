@@ -2,9 +2,9 @@
 
 namespace Qubiqx\QcommerceEcommerceMontaportal;
 
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Qubiqx\QcommerceEcommerceCore\Events\Orders\OrderMarkedAsPaidEvent;
 use Qubiqx\QcommerceEcommerceMontaportal\Listeners\MarkOrderAsPushableListener;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class QcommerceEcommerceMontaportalEventServiceProvider extends ServiceProvider
 {
