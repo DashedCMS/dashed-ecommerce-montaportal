@@ -213,24 +213,16 @@ class Montaportal
 
     public static function updateOrder(Order $order): void
     {
-        dd($order->montaPortalOrder);
         if ($order->fulfillment_status == 'handled' || !$order->montaPortalOrder) {
             return;
         }
 
-        dd('asdf');
-
-        try {
+//        try {
             $apiClient = self::initialize();
             $efulfillmentOrder = $apiClient->getOrder($montaportalOrder->order->id);
-            if ($efulfillmentOrder->TrackAndTraceLink && $efulfillmentOrder->TrackAndTraceLink != null) {
-                $trackAndTraceLinks[] = $efulfillmentOrder->TrackAndTraceLink;
-            }
-            $ordersCount++;
-        } catch (Exception $e) {
-            $montaportalOrder->track_and_trace_present = 2;
-            $montaportalOrder->save();
-        }
+            dd($efulfillmentOrder);
+//        } catch (Exception $e) {
+//        }
         $montaportalOrder->order->changeFulfillmentStatus('packed');
     }
 
