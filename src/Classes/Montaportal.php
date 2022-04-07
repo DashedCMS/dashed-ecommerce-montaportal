@@ -214,7 +214,7 @@ class Montaportal
     public static function updateOrder(Order $order): void
     {
         dd($order->montaPortalOrder);
-        if ($order->fulfillment_status == 'handled' || !$order->montaPortalOrder) {
+        if ($order->fulfillment_status == 'handled' || ! $order->montaPortalOrder) {
             return;
         }
 
