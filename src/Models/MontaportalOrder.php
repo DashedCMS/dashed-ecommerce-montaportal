@@ -2,9 +2,10 @@
 
 namespace Qubiqx\QcommerceEcommerceMontaportal\Models;
 
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
-use Qubiqx\QcommerceEcommerceCore\Models\Order;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Qubiqx\QcommerceEcommerceCore\Models\Order;
 
 class MontaportalOrder extends Model
 {
@@ -33,6 +34,11 @@ class MontaportalOrder extends Model
         'montaportal_pre_order_ids' => 'array',
         'track_and_trace_links' => 'array',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 
     public function order()
     {
