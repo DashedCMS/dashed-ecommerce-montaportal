@@ -82,6 +82,7 @@ class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
                 SyncProductStockWithMontaportal::class,
                 PushOrdersToMontaportalCommand::class,
                 UpdateOrdersToMontaportalCommand::class,
+                UpdateOrderTrackAndTraceFromMontaportalCommand::class,
             ]);
     }
 
