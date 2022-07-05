@@ -377,7 +377,6 @@ class Montaportal
                     $orderLog->tag = 'order.pushed-to-montaportal';
                     $orderLog->save();
                 } else {
-                    dd($response);
                     if ($montaPortalOrder->pushed_to_montaportal != 2) {
                         Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal');
                         $montaPortalOrder->error = $response['error'] ?? serialize($response);
