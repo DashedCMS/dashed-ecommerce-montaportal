@@ -389,7 +389,7 @@ class Montaportal
 
             return true;
         } catch (Exception $e) {
-//            dd($e->getMessage());
+            dd($e->getMessage());
             if ($montaPortalOrder->pushed_to_montaportal != 2) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal with error: ' . $e->getMessage());
                 $montaPortalOrder->error = $e->getMessage();
