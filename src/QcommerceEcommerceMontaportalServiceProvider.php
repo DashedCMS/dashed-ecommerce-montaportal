@@ -14,6 +14,7 @@ use Qubiqx\QcommerceEcommerceMontaportal\Commands\UpdateOrdersToMontaportalComma
 use Qubiqx\QcommerceEcommerceMontaportal\Commands\UpdateOrderTrackAndTraceFromMontaportalCommand;
 use Qubiqx\QcommerceEcommerceMontaportal\Filament\Pages\Settings\MontaportalSettingsPage;
 use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource;
+use Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets\MontaportalFailedOrders;
 use Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets\MontaportalOrderStats;
 use Qubiqx\QcommerceEcommerceMontaportal\Livewire\Orders\ShowMontaportalOrder;
 use Qubiqx\QcommerceEcommerceMontaportal\Livewire\Products\EditMontaportalProduct;
@@ -104,6 +105,7 @@ class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
     {
         return array_merge(parent::getWidgets(), [
             MontaportalOrderStats::class,
+            MontaportalFailedOrders::class,
         ]);
     }
 }
