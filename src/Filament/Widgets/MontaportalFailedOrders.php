@@ -2,16 +2,11 @@
 
 namespace Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets;
 
-use Filament\Facades\Filament;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Qubiqx\QcommerceEcommerceCore\Models\Order;
 use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
 
 class MontaportalFailedOrders extends BaseWidget
@@ -48,7 +43,7 @@ class MontaportalFailedOrders extends BaseWidget
             Action::make('view_order')
                 ->label('Bekijk bestelling')
                 ->button()
-                ->url(fn($record) => route('filament.resources.orders.view', [$record])),
+                ->url(fn ($record) => route('filament.resources.orders.view', [$record])),
         ];
     }
 }
