@@ -33,7 +33,7 @@ class MontaportalProductResource extends Resource
                 Card::make()
                     ->schema([
                         Placeholder::make('')
-                            ->content(fn($record) => 'Bewerk instellingen voor Montaportal voor product ' . $record->product->name),
+                            ->content(fn ($record) => 'Bewerk instellingen voor Montaportal voor product ' . $record->product->name),
                         Toggle::make('sync_stock')
                             ->label('Sync voorraad'),
                     ]),
