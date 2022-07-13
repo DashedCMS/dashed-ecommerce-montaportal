@@ -48,11 +48,13 @@ class Montaportal
     {
         if (! $product->ean) {
             dump('no ean');
+
             return false;
         }
 
         if ($product->montaportalProduct) {
             dump('already have monta product');
+
             return true;
         }
 
@@ -63,6 +65,7 @@ class Montaportal
             $montaportalProduct->product_id = $product->id;
             $montaportalProduct->montaportal_id = $montaProduct->Sku;
             $montaportalProduct->save();
+
             return true;
         } else {
             try {
