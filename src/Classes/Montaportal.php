@@ -47,21 +47,23 @@ class Montaportal
     public static function createProduct(Product $product)
     {
         if (! $product->ean) {
+            dump('no ean');
             return false;
         }
 
         if ($product->montaportalProduct) {
+            dump('already have monta product');
             return true;
         }
 
         $apiClient = self::initialize();
         $montaProduct = $apiClient->getProduct($product->sku);
         if ($montaProduct) {
-            dd($montaProduct);
             $montaportalProduct = new montaportalProduct();
             $montaportalProduct->product_id = $product->id;
-            $montaportalProduct->montaportal_id = $response->Sku;
+            $montaportalProduct->montaportal_id = $montaProduct->Sku;
             $montaportalProduct->save();
+            return true;
         } else {
             try {
                 $apiClient = self::initialize();
@@ -82,6 +84,7 @@ class Montaportal
 
                 return true;
             } catch (Exception $e) {
+                dump($e->getMessage());
                 Mails::sendNotificationToAdmins('Product #' . $product->id . ' failed to push to Montapackage with error: ' . $e->getMessage());
 
                 return false;
