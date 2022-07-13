@@ -63,7 +63,11 @@ class Montaportal
         try {
             $montaProduct = $apiClient->getProduct($product->sku);
         } catch (Exception $e) {
-            $montaProduct = null;
+            try {
+                $montaProduct = $apiClient->getProductByBarcode($product->ean);
+            } catch (Exception $e) {
+                $montaProduct = null;
+            }
         }
 
         if ($montaProduct) {
