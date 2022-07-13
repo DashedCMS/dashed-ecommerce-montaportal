@@ -134,6 +134,7 @@ class Montaportal
             return true;
         } catch (Exception $e) {
             dump($e->getMessage());
+
             return false;
         }
     }
