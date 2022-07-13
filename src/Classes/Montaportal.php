@@ -73,6 +73,7 @@ class Montaportal
 
             return true;
         } catch (Exception $e) {
+            dump($e->getMessage());
             Mails::sendNotificationToAdmins('Product #' . $product->id . ' failed to push to Montapackage with error: ' . $e->getMessage());
 
             return false;
