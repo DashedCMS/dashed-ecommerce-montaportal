@@ -43,7 +43,7 @@ class MontaportalFailedOrders extends BaseWidget
             Action::make('view_order')
                 ->label('Bekijk bestelling')
                 ->button()
-                ->url(fn ($record) => route('filament.resources.orders.view', [$record])),
+                ->url(fn ($record) => route('filament.resources.orders.view', [$record->id])),
         ];
     }
 }
