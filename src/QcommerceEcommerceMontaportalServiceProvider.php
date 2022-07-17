@@ -41,11 +41,21 @@ class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
 
         $this->app->booted(function () {
             $schedule = app(Schedule::class);
-            $schedule->command(PushProductsToMontaportal::class)->everyFiveMinutes();
-            $schedule->command(SyncProductStockWithMontaportal::class)->everyFiveMinutes();
-            $schedule->command(PushOrdersToMontaportalCommand::class)->everyFiveMinutes();
-            $schedule->command(UpdateOrderTrackAndTraceFromMontaportalCommand::class)->everyFifteenMinutes();
-            $schedule->command(UpdateOrdersToMontaportalCommand::class)->everyFifteenMinutes();
+            $schedule->command(PushProductsToMontaportal::class)
+                ->everyFiveMinutes()
+                ->withoutOverlapping();
+            $schedule->command(SyncProductStockWithMontaportal::class)
+                ->everyFiveMinutes()
+                ->withoutOverlapping();
+            $schedule->command(PushOrdersToMontaportalCommand::class)
+                ->everyFiveMinutes()
+                ->withoutOverlapping();
+            $schedule->command(UpdateOrderTrackAndTraceFromMontaportalCommand::class)
+                ->everyFifteenMinutes()
+                ->withoutOverlapping();
+            $schedule->command(UpdateOrdersToMontaportalCommand::class)
+                ->everyFifteenMinutes()
+                ->withoutOverlapping();
         });
     }
 
