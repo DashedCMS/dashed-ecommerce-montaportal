@@ -40,7 +40,7 @@ class SyncProductStockWithMontaportal extends Command
     public function handle()
     {
 //        if (env('APP_ENV') != 'local') {
-        $products = Product::publicShowable()->get();
+        $products = Product::get();
         foreach ($products as $product) {
             Montaportal::syncProductStock($product);
         }
