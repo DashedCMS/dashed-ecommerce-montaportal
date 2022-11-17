@@ -4,8 +4,8 @@ namespace Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets;
 
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
 
