@@ -2,10 +2,10 @@
 
 namespace Qubiqx\QcommerceEcommerceMontaportal\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Qubiqx\QcommerceEcommerceCore\Models\Product;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Qubiqx\QcommerceEcommerceCore\Models\Product;
 
 class MontaportalProduct extends Model
 {

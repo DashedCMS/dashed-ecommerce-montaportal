@@ -2,8 +2,8 @@
 
 namespace Qubiqx\QcommerceEcommerceMontaportal\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Qubiqx\QcommerceEcommerceMontaportal\QcommerceEcommerceMontaportalServiceProvider;
 
 class TestCase extends Orchestra
