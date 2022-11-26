@@ -21,7 +21,7 @@ class Montaportal
 {
     public static function isConnected($siteId = null)
     {
-        if (!$siteId) {
+        if (! $siteId) {
             $siteId = Sites::getActive();
         }
 
@@ -37,7 +37,7 @@ class Montaportal
 
     public static function initialize($siteId = null)
     {
-        if (!$siteId) {
+        if (! $siteId) {
             $siteId = Sites::getActive();
         }
 
@@ -46,7 +46,7 @@ class Montaportal
 
     public static function createProduct(Product $product)
     {
-        if (!$product->ean) {
+        if (! $product->ean) {
             dump('no ean');
 
             return false;
@@ -85,7 +85,7 @@ class Montaportal
                     'Barcodes' => [$product->ean],
                 ]);
 
-                if (!$response->Sku) {
+                if (! $response->Sku) {
                     Mails::sendNotificationToAdmins('Product #' . $product->id . ' failed to push to Montapackage');
                 } else {
                     $montaportalProduct = new montaportalProduct();
@@ -106,7 +106,7 @@ class Montaportal
 
     public static function updateProduct(Product $product)
     {
-        if (!$product->montaportalProduct) {
+        if (! $product->montaportalProduct) {
             return;
         }
 
@@ -117,7 +117,7 @@ class Montaportal
             foreach ($montaProduct->Barcodes as $barcode) {
                 $barcodes[] = $barcode;
             }
-            if (!in_array($product->ean, $barcodes)) {
+            if (! in_array($product->ean, $barcodes)) {
                 $barcodes[] = $product->ean;
             }
 
@@ -125,7 +125,7 @@ class Montaportal
                 'Barcodes' => $barcodes,
             ]);
 
-            if (!$response->Sku) {
+            if (! $response->Sku) {
             } else {
                 $product->montaportalProduct->montaportal_id = $response->Sku;
                 $product->montaportalProduct->save();
@@ -145,7 +145,7 @@ class Montaportal
 
     public static function syncProductStock(Product $product)
     {
-        if (!$product->montaportalProduct || !$product->montaportalProduct->sync_stock) {
+        if (! $product->montaportalProduct || ! $product->montaportalProduct->sync_stock) {
             return;
         }
 
@@ -163,7 +163,7 @@ class Montaportal
 
     public static function deleteProduct(Product $product)
     {
-        if (!$product->montaportalProduct) {
+        if (! $product->montaportalProduct) {
             return;
         }
 
@@ -243,7 +243,7 @@ class Montaportal
 
     public static function updateOrder(Order $order): void
     {
-        if ($order->fulfillment_status == 'handled' || !$order->montaPortalOrder) {
+        if ($order->fulfillment_status == 'handled' || ! $order->montaPortalOrder) {
             return;
         }
 
@@ -258,7 +258,7 @@ class Montaportal
             return;
         }
 
-        if (!$efulfillmentOrder->Shipped ?? false) {
+        if (! $efulfillmentOrder->Shipped ?? false) {
             $allOrdersShipped = false;
         }
         if ($efulfillmentOrder->DeliveryStatusCode != 'Delivered') {
@@ -272,7 +272,7 @@ class Montaportal
                 } catch (Exception $e) {
                     return;
                 }
-                if (!$efulfillmentOrder->Shipped) {
+                if (! $efulfillmentOrder->Shipped) {
                     $allOrdersShipped = false;
                 }
                 if ($efulfillmentOrder->DeliveryStatusCode != 'Delivered') {
@@ -281,7 +281,7 @@ class Montaportal
             }
         }
 
-        if ($allOrdersShipped && !$allOrdersDelivered) {
+        if ($allOrdersShipped && ! $allOrdersDelivered) {
             $order->changeFulfillmentStatus('shipped');
         } elseif ($allOrdersShipped && $allOrdersDelivered) {
             $order->changeFulfillmentStatus('handled');
@@ -299,14 +299,14 @@ class Montaportal
 
             $allProductsPushedToEfulfillment = true;
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
-                if (!$orderProduct->product->is_bundle) {
-                    if (!$orderProduct->product->montaportalProduct) {
+                if (! $orderProduct->product->is_bundle) {
+                    if (! $orderProduct->product->montaportalProduct) {
                         $allProductsPushedToEfulfillment = false;
                     }
                 }
             }
 
-            if (!$allProductsPushedToEfulfillment && $montaPortalOrder->order->montaPortalOrder->pushed_to_montaportal != 2) {
+            if (! $allProductsPushedToEfulfillment && $montaPortalOrder->order->montaPortalOrder->pushed_to_montaportal != 2) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal because not all products are pushed to Montaportal');
                 $montaPortalOrder->pushed_to_montaportal = 2;
                 $montaPortalOrder->save();
@@ -316,7 +316,7 @@ class Montaportal
             $preOrderedOrderedProducts = [];
 
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
-                if (!$orderProduct->product->is_bundle) {
+                if (! $orderProduct->product->is_bundle) {
                     if ($orderProduct->is_pre_order && $orderProduct->pre_order_restocked_date && Carbon::parse($orderProduct->pre_order_date) > Carbon::now()->endOfDay()) {
                         $preOrderedOrderedProducts[] = [
                             'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
