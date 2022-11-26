@@ -52,14 +52,14 @@ class PushProductsToMontaportal extends Command
             if ($success) {
                 $this->info('Montaportal product created: ' . $product->id);
             } else {
-                $this->error('Montaportal product creation failed: ' . $product->id);
+                $this->error('Montaportal product creation failed: ' . $product->id . ' - ' . $product->name);
             }
 
             $success = Montaportal::updateProduct($product);
             if ($success) {
                 $this->info('Montaportal product updated: ' . $product->id);
             } else {
-                $this->error('Montaportal product updating failed: ' . $product->id);
+                $this->error('Montaportal product updating failed: ' . $product->id . ' - ' . $product->name);
             }
         }
 //        }
