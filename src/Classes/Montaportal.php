@@ -253,7 +253,8 @@ class Montaportal
         } catch (Exception $e) {
             return;
         }
-        if (!$efulfillmentOrder->Shipped) {
+
+        if (!$efulfillmentOrder->Shipped ?? false) {
             $allOrdersShipped = false;
         }
         if ($efulfillmentOrder->DeliveryStatusCode != 'Delivered') {
