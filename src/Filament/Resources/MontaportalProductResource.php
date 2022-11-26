@@ -2,18 +2,18 @@
 
 namespace Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources;
 
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Toggle;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\Placeholder;
-use Filament\Tables\Columns\BooleanColumn;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalProduct;
 use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\EditMontaportalProduct;
 use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\ListMontaportalProducts;
+use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalProduct;
 
 class MontaportalProductResource extends Resource
 {
