@@ -253,6 +253,7 @@ class Montaportal
         $apiClient = self::initialize();
 
         dump($order->montaPortalOrder->montaportal_id);
+
         try {
             $efulfillmentOrder = $apiClient->getOrder($order->montaPortalOrder->montaportal_id);
         } catch (Exception $e) {
@@ -263,7 +264,7 @@ class Montaportal
             throw new \Exception('Montaportal returned an array instead of an object');
         }
 
-        if (!($efulfillmentOrder->Shipped ?? false)) {
+        if (! ($efulfillmentOrder->Shipped ?? false)) {
             $allOrdersShipped = false;
         }
         if ($efulfillmentOrder->DeliveryStatusCode != 'Delivered') {
