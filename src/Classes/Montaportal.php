@@ -258,7 +258,7 @@ class Montaportal
             return;
         }
 
-        if(is_array($efulfillmentOrder)){
+        if (is_array($efulfillmentOrder)) {
             throw new \Exception('Montaportal returned an array instead of an object ' . serialize($efulfillmentOrder));
         }
 
