@@ -257,7 +257,6 @@ class Montaportal
         } catch (Exception $e) {
             return;
         }
-
         if (!$efulfillmentOrder->Shipped) {
             $allOrdersShipped = false;
         }
