@@ -243,7 +243,7 @@ class Montaportal
 
     public static function updateOrder(Order $order): void
     {
-        if ($order->fulfillment_status == 'handled' || ! $order->montaPortalOrder) {
+        if ($order->fulfillment_status == 'handled' || ! $order->montaPortalOrder || !$order->montaPortalOrder->montaportal_id) {
             return;
         }
 
@@ -252,20 +252,16 @@ class Montaportal
 
         $apiClient = self::initialize();
 
-        dump($order->montaPortalOrder->montaportal_id);
         try {
             $efulfillmentOrder = $apiClient->getOrder($order->montaPortalOrder->montaportal_id);
         } catch (Exception $e) {
             return;
         }
 
-        if (is_array($efulfillmentOrder)) {
-            throw new \Exception('Montaportal returned an array instead of an object');
-        }
-
-        if (!($efulfillmentOrder->Shipped ?? false)) {
+        if (!$efulfillmentOrder->Shipped) {
             $allOrdersShipped = false;
         }
+
         if ($efulfillmentOrder->DeliveryStatusCode != 'Delivered') {
             $allOrdersDelivered = false;
         }
