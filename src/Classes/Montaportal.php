@@ -53,7 +53,7 @@ class Montaportal
         }
 
         if ($product->montaportalProduct) {
-            dump('already have monta product');
+//            dump('already have monta product');
 
             return true;
         }
@@ -104,10 +104,10 @@ class Montaportal
         }
     }
 
-    public static function updateProduct(Product $product)
+    public static function updateProduct(Product $product): bool
     {
         if (! $product->montaportalProduct) {
-            return;
+            return false;
         }
 
         try {
@@ -325,7 +325,7 @@ class Montaportal
                     ];
                 } else {
                     if (! $orderProduct->product->montaportalProduct) {
-                        dd($orderProduct->product);
+                        dd($orderProduct->product->name, $orderProduct->product->sku);
                     }
                     $orderedProducts[] = [
                         'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
