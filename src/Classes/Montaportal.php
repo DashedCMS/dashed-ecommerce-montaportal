@@ -134,6 +134,7 @@ class Montaportal
             return true;
         } catch (Exception $e) {
             if (str($e->getMessage())->contains('Provided SKU does not exist for a single known product')) {
+                dump('Deleted product ' . $product->name);
                 $product->montaportalProduct->delete();
             }
 
