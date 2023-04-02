@@ -136,7 +136,7 @@ class Montaportal
                     $barcodes[] = $product->ean;
                 }
 
-                $response = $apiClient->updateProduct($product->sku, [
+                $response = $apiClient->updateProduct($product->montaportalProduct->montaportal_id, [
                     'Barcodes' => $barcodes,
                 ]);
 
@@ -152,7 +152,7 @@ class Montaportal
             }
         } catch (Exception $e) {
             if (str($e->getMessage())->contains('Provided SKU does not exist for a single known product')) {
-                dump('Deleted product ' . $product->name);
+                dump('Deleted product ' . $product->name . ' - ' . $product->sku);
                 $product->montaportalProduct->delete();
             }
 
