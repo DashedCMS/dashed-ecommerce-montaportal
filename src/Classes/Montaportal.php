@@ -294,7 +294,7 @@ class Montaportal
             return;
         }
 
-        try {
+//        try {
             $apiClient = self::initialize();
 
             $allProductsPushedToEfulfillment = true;
@@ -316,7 +316,7 @@ class Montaportal
             $preOrderedOrderedProducts = [];
 
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
-                if (! $orderProduct->product->is_bundle) {
+                if (!$orderProduct->product->is_bundle) {
                     if ($orderProduct->is_pre_order && $orderProduct->pre_order_restocked_date && Carbon::parse($orderProduct->pre_order_date) > Carbon::now()->endOfDay()) {
                         $preOrderedOrderedProducts[] = [
                             'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
@@ -422,17 +422,17 @@ class Montaportal
             }
 
             return true;
-        } catch (Exception $e) {
-            dump($e->getMessage());
-            if ($montaPortalOrder->pushed_to_montaportal != 2) {
-                Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal with error: ' . $e->getMessage());
-                $montaPortalOrder->error = $e->getMessage();
-                $montaPortalOrder->pushed_to_montaportal = 2;
-                $montaPortalOrder->save();
-            }
-
-            return false;
-        }
+//        } catch (Exception $e) {
+//            dump($e->getMessage());
+//            if ($montaPortalOrder->pushed_to_montaportal != 2) {
+//                Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal with error: ' . $e->getMessage());
+//                $montaPortalOrder->error = $e->getMessage();
+//                $montaPortalOrder->pushed_to_montaportal = 2;
+//                $montaPortalOrder->save();
+//            }
+//
+//            return false;
+//        }
     }
 
     //Todo: only implement if needed
