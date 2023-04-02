@@ -324,7 +324,7 @@ class Montaportal
                         'preOrderDate' => Carbon::parse($orderProduct->pre_order_restocked_date)->format('d-m-Y'),
                     ];
                 } else {
-                    if(!$orderProduct->product->montaportalProduct){
+                    if (! $orderProduct->product->montaportalProduct) {
                         dd($orderProduct->product);
                     }
                     $orderedProducts[] = [
