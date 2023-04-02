@@ -295,48 +295,83 @@ class Montaportal
         }
 
 //        try {
-            $apiClient = self::initialize();
+        $apiClient = self::initialize();
 
-            $allProductsPushedToEfulfillment = true;
-            foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
-                if (! $orderProduct->product->is_bundle) {
-                    if (! $orderProduct->product->montaportalProduct) {
-                        $allProductsPushedToEfulfillment = false;
-                    }
+        $allProductsPushedToEfulfillment = true;
+        foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
+            if (! $orderProduct->product->is_bundle) {
+                if (! $orderProduct->product->montaportalProduct) {
+                    $allProductsPushedToEfulfillment = false;
                 }
             }
+        }
 
-            if (! $allProductsPushedToEfulfillment && $montaPortalOrder->order->montaPortalOrder->pushed_to_montaportal != 2) {
-                Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal because not all products are pushed to Montaportal');
-                $montaPortalOrder->pushed_to_montaportal = 2;
-                $montaPortalOrder->save();
-            }
+        if (! $allProductsPushedToEfulfillment && $montaPortalOrder->order->montaPortalOrder->pushed_to_montaportal != 2) {
+            Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal because not all products are pushed to Montaportal');
+            $montaPortalOrder->pushed_to_montaportal = 2;
+            $montaPortalOrder->save();
+        }
 
-            $orderedProducts = [];
-            $preOrderedOrderedProducts = [];
+        $orderedProducts = [];
+        $preOrderedOrderedProducts = [];
 
-            foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
-                if (!$orderProduct->product->is_bundle) {
-                    if ($orderProduct->is_pre_order && $orderProduct->pre_order_restocked_date && Carbon::parse($orderProduct->pre_order_date) > Carbon::now()->endOfDay()) {
-                        $preOrderedOrderedProducts[] = [
-                            'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
-                            'OrderedQuantity' => $orderProduct->quantity,
-                            'preOrderDate' => Carbon::parse($orderProduct->pre_order_restocked_date)->format('d-m-Y'),
-                        ];
-                    } else {
-                        $orderedProducts[] = [
-                            'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
-                            'OrderedQuantity' => $orderProduct->quantity,
-                        ];
-                    }
+        foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
+            if (! $orderProduct->product->is_bundle) {
+                if ($orderProduct->is_pre_order && $orderProduct->pre_order_restocked_date && Carbon::parse($orderProduct->pre_order_date) > Carbon::now()->endOfDay()) {
+                    $preOrderedOrderedProducts[] = [
+                        'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
+                        'OrderedQuantity' => $orderProduct->quantity,
+                        'preOrderDate' => Carbon::parse($orderProduct->pre_order_restocked_date)->format('d-m-Y'),
+                    ];
+                } else {
+                    $orderedProducts[] = [
+                        'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
+                        'OrderedQuantity' => $orderProduct->quantity,
+                    ];
                 }
             }
+        }
 
-            $montaPortalOrder->order->createInvoice();
+        $montaPortalOrder->order->createInvoice();
 
-            if ($orderedProducts) {
+        if ($orderedProducts) {
+            $data = [
+                'WebshopOrderId' => $montaPortalOrder->order->invoice_id,
+                'ConsumerDetails' => [
+                    'DeliveryAddress' => [
+                        'LastName' => $montaPortalOrder->order->name,
+                        'Street' => $montaPortalOrder->order->street,
+                        'HouseNumber' => $montaPortalOrder->order->house_nr,
+                        'City' => $montaPortalOrder->order->city,
+                        'PostalCode' => $montaPortalOrder->order->zip_code,
+//                            'CountryCode' => Countries::getCountryIsoCode($order->country) ?: 'NL',
+                        'CountryCode' => $montaPortalOrder->order->country,
+                        'EmailAddress' => $montaPortalOrder->order->email,
+                    ],
+                    'B2b' => false,
+                ],
+                'notes' => 'No notes',
+                'lines' => $orderedProducts,
+                'ProformaInvoiceUrl' => env('APP_ENV') == 'local' ? null : $montaPortalOrder->order->downloadInvoiceUrl(),
+            ];
+
+            $response = $apiClient->addOrder($data);
+        }
+
+        if ($preOrderedOrderedProducts) {
+            $efulfillmentPreOrderIds = [];
+            foreach ($preOrderedOrderedProducts as $preOrderedOrderedProduct) {
+                $orderedProducts = [];
+                $preOrderDate = $preOrderedOrderedProduct['preOrderDate'];
+                $orderedProducts[] = [
+                    'Sku' => $preOrderedOrderedProduct['Sku'],
+                    'OrderedQuantity' => $preOrderedOrderedProduct['OrderedQuantity'],
+                ];
+
+                $orderId = $montaPortalOrder->order->invoice_id . '-pre-order-' . $preOrderedOrderedProduct['Sku'];
+                $efulfillmentPreOrderIds[] = $orderId;
                 $data = [
-                    'WebshopOrderId' => $montaPortalOrder->order->invoice_id,
+                    'WebshopOrderId' => $orderId,
                     'ConsumerDetails' => [
                         'DeliveryAddress' => [
                             'LastName' => $montaPortalOrder->order->name,
@@ -344,12 +379,13 @@ class Montaportal
                             'HouseNumber' => $montaPortalOrder->order->house_nr,
                             'City' => $montaPortalOrder->order->city,
                             'PostalCode' => $montaPortalOrder->order->zip_code,
-//                            'CountryCode' => Countries::getCountryIsoCode($order->country) ?: 'NL',
                             'CountryCode' => $montaPortalOrder->order->country,
                             'EmailAddress' => $montaPortalOrder->order->email,
                         ],
                         'B2b' => false,
                     ],
+                    'PlannedShipmentDate' => Carbon::parse($preOrderDate),
+                    'ShipOnPlannedShipmentDate' => true,
                     'notes' => 'No notes',
                     'lines' => $orderedProducts,
                     'ProformaInvoiceUrl' => env('APP_ENV') == 'local' ? null : $montaPortalOrder->order->downloadInvoiceUrl(),
@@ -357,71 +393,35 @@ class Montaportal
 
                 $response = $apiClient->addOrder($data);
             }
+            $montaPortalOrder->montaportal_pre_order_ids = $efulfillmentPreOrderIds;
+            $montaPortalOrder->save();
+        }
 
-            if ($preOrderedOrderedProducts) {
-                $efulfillmentPreOrderIds = [];
-                foreach ($preOrderedOrderedProducts as $preOrderedOrderedProduct) {
-                    $orderedProducts = [];
-                    $preOrderDate = $preOrderedOrderedProduct['preOrderDate'];
-                    $orderedProducts[] = [
-                        'Sku' => $preOrderedOrderedProduct['Sku'],
-                        'OrderedQuantity' => $preOrderedOrderedProduct['OrderedQuantity'],
-                    ];
-
-                    $orderId = $montaPortalOrder->order->invoice_id . '-pre-order-' . $preOrderedOrderedProduct['Sku'];
-                    $efulfillmentPreOrderIds[] = $orderId;
-                    $data = [
-                        'WebshopOrderId' => $orderId,
-                        'ConsumerDetails' => [
-                            'DeliveryAddress' => [
-                                'LastName' => $montaPortalOrder->order->name,
-                                'Street' => $montaPortalOrder->order->street,
-                                'HouseNumber' => $montaPortalOrder->order->house_nr,
-                                'City' => $montaPortalOrder->order->city,
-                                'PostalCode' => $montaPortalOrder->order->zip_code,
-                                'CountryCode' => $montaPortalOrder->order->country,
-                                'EmailAddress' => $montaPortalOrder->order->email,
-                            ],
-                            'B2b' => false,
-                        ],
-                        'PlannedShipmentDate' => Carbon::parse($preOrderDate),
-                        'ShipOnPlannedShipmentDate' => true,
-                        'notes' => 'No notes',
-                        'lines' => $orderedProducts,
-                        'ProformaInvoiceUrl' => env('APP_ENV') == 'local' ? null : $montaPortalOrder->order->downloadInvoiceUrl(),
-                    ];
-
-                    $response = $apiClient->addOrder($data);
-                }
-                $montaPortalOrder->montaportal_pre_order_ids = $efulfillmentPreOrderIds;
+        if (isset($response)) {
+            if ($response->WebshopOrderId) {
+                $montaPortalOrder->error = '';
+                $montaPortalOrder->pushed_to_montaportal = 1;
+                $montaPortalOrder->montaportal_id = $response->WebshopOrderId;
                 $montaPortalOrder->save();
-            }
 
-            if (isset($response)) {
-                if ($response->WebshopOrderId) {
-                    $montaPortalOrder->error = '';
-                    $montaPortalOrder->pushed_to_montaportal = 1;
-                    $montaPortalOrder->montaportal_id = $response->WebshopOrderId;
+                $montaPortalOrder->order->changeFulfillmentStatus('in_treatment');
+
+                $orderLog = new OrderLog();
+                $orderLog->order_id = $montaPortalOrder->order->id;
+                $orderLog->user_id = Auth::user()->id ?? null;
+                $orderLog->tag = 'order.pushed-to-montaportal';
+                $orderLog->save();
+            } else {
+                if ($montaPortalOrder->pushed_to_montaportal != 2) {
+                    Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal');
+                    $montaPortalOrder->error = $response['error'] ?? serialize($response);
+                    $montaPortalOrder->pushed_to_montaportal = 2;
                     $montaPortalOrder->save();
-
-                    $montaPortalOrder->order->changeFulfillmentStatus('in_treatment');
-
-                    $orderLog = new OrderLog();
-                    $orderLog->order_id = $montaPortalOrder->order->id;
-                    $orderLog->user_id = Auth::user()->id ?? null;
-                    $orderLog->tag = 'order.pushed-to-montaportal';
-                    $orderLog->save();
-                } else {
-                    if ($montaPortalOrder->pushed_to_montaportal != 2) {
-                        Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal');
-                        $montaPortalOrder->error = $response['error'] ?? serialize($response);
-                        $montaPortalOrder->pushed_to_montaportal = 2;
-                        $montaPortalOrder->save();
-                    }
                 }
             }
+        }
 
-            return true;
+        return true;
 //        } catch (Exception $e) {
 //            dump($e->getMessage());
 //            if ($montaPortalOrder->pushed_to_montaportal != 2) {
