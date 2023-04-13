@@ -314,6 +314,7 @@ class Montaportal
         }
 
         if(MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->count()) {
+            dd(MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->count());
             MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->delete();
 
             return false;
