@@ -307,10 +307,15 @@ class Montaportal
         }
     }
 
-    public static function createOrder(MontaportalOrder $montaPortalOrder)
+    public static function createOrder(MontaportalOrder $montaPortalOrder): bool
     {
         if ($montaPortalOrder->pushed_to_montaportal == 1) {
-            return;
+            return false;
+        }
+
+        if(MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->count()){
+            MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->delete();
+            return false;
         }
 
 //        try {
