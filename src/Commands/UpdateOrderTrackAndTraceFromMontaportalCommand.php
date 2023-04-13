@@ -39,11 +39,11 @@ class UpdateOrderTrackAndTraceFromMontaportalCommand extends Command
      */
     public function handle()
     {
-//        if (env('APP_ENV') != 'local') {
+        //        if (env('APP_ENV') != 'local') {
         $montaportalOrders = MontaportalOrder::where('pushed_to_montaportal', 1)->where('track_and_trace_present', '!=', 1)->get();
         foreach ($montaportalOrders as $montaportalOrder) {
             Montaportal::updateTrackandTrace($montaportalOrder);
         }
-//        }
+        //        }
     }
 }

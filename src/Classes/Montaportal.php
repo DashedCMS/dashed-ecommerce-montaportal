@@ -53,7 +53,7 @@ class Montaportal
         }
 
         if ($product->montaportalProduct) {
-//            dump('already have monta product');
+            //            dump('already have monta product');
 
             return true;
         }
@@ -313,12 +313,13 @@ class Montaportal
             return false;
         }
 
-        if(MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->count()){
+        if(MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->count()) {
             MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->delete();
+
             return false;
         }
 
-//        try {
+        //        try {
         $apiClient = self::initialize();
 
         $allProductsPushedToEfulfillment = true;
@@ -449,17 +450,17 @@ class Montaportal
         }
 
         return true;
-//        } catch (Exception $e) {
-//            dump($e->getMessage());
-//            if ($montaPortalOrder->pushed_to_montaportal != 2) {
-//                Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal with error: ' . $e->getMessage());
-//                $montaPortalOrder->error = $e->getMessage();
-//                $montaPortalOrder->pushed_to_montaportal = 2;
-//                $montaPortalOrder->save();
-//            }
-//
-//            return false;
-//        }
+        //        } catch (Exception $e) {
+        //            dump($e->getMessage());
+        //            if ($montaPortalOrder->pushed_to_montaportal != 2) {
+        //                Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal with error: ' . $e->getMessage());
+        //                $montaPortalOrder->error = $e->getMessage();
+        //                $montaPortalOrder->pushed_to_montaportal = 2;
+        //                $montaPortalOrder->save();
+        //            }
+        //
+        //            return false;
+        //        }
     }
 
     //Todo: only implement if needed

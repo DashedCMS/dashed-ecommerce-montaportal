@@ -39,12 +39,12 @@ class PushOrdersToMontaportalCommand extends Command
      */
     public function handle()
     {
-//        if (env('APP_ENV') != 'local') {
+        //        if (env('APP_ENV') != 'local') {
         MontaportalOrder::where('error', 'LIKE', '%An order with that Webshop Order ID already exists%')->delete();
         $montaPortalOrders = MontaportalOrder::where('pushed_to_montaportal', '!=', 1)->with(['order'])->get();
         foreach ($montaPortalOrders as $montaPortalOrder) {
             Montaportal::createOrder($montaPortalOrder);
         }
-//        }
+        //        }
     }
 }

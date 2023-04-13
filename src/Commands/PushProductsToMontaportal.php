@@ -39,7 +39,7 @@ class PushProductsToMontaportal extends Command
      */
     public function handle()
     {
-//        if (env('APP_ENV') != 'local') {
+        //        if (env('APP_ENV') != 'local') {
         $products = Product::thisSite()
             ->where('sku', '!=', null)
             ->where('price', '!=', null)
@@ -62,6 +62,6 @@ class PushProductsToMontaportal extends Command
                 $this->error('Montaportal product updating failed: ' . $product->id . ' - ' . $product->name);
             }
         }
-//        }
+        //        }
     }
 }

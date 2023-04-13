@@ -39,7 +39,7 @@ class SyncProductStockWithMontaportal extends Command
      */
     public function handle()
     {
-//        if (env('APP_ENV') != 'local') {
+        //        if (env('APP_ENV') != 'local') {
         $products = Product::thisSite()
             ->where('sku', '!=', null)
             ->where('price', '!=', null)
@@ -50,6 +50,6 @@ class SyncProductStockWithMontaportal extends Command
         foreach ($products as $product) {
             Montaportal::syncProductStock($product);
         }
-//        }
+        //        }
     }
 }
