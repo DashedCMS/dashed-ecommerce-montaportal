@@ -313,9 +313,8 @@ class Montaportal
             return false;
         }
 
-        if(MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->count()) {
-            dd(MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->count());
-            MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('id', '!=', $montaPortalOrder)->delete();
+        if(MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->whereNotNull('montaportal_id')->where('id', '!=', $montaPortalOrder)->count()) {
+            $montaPortalOrder->delete();
 
             return false;
         }
