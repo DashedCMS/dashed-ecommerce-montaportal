@@ -464,21 +464,21 @@ class Montaportal
     }
 
     //Todo: only implement if needed
-//    public static function checkAddress($street, $housenumber, $city, $postalCode, $sendLocation)
-//    {
-//        try {
-//            $response = self::sendRequest('/address', [
-//                'LastName' => $street,
-//                'Street' => $street,
-//                'HouseNumber' => $housenumber,
-//                'City' => $city,
-//                'PostalCode' => $postalCode,
-//                'CountryCode' => $sendLocation->country_short,
-//            ], 'POST');
-//
-//            return true;
-//        } catch (Exception $e) {
-//            return false;
-//        }
-//    }
+    //    public static function checkAddress($street, $housenumber, $city, $postalCode, $sendLocation)
+    //    {
+    //        try {
+    //            $response = self::sendRequest('/address', [
+    //                'LastName' => $street,
+    //                'Street' => $street,
+    //                'HouseNumber' => $housenumber,
+    //                'City' => $city,
+    //                'PostalCode' => $postalCode,
+    //                'CountryCode' => $sendLocation->country_short,
+    //            ], 'POST');
+    //
+    //            return true;
+    //        } catch (Exception $e) {
+    //            return false;
+    //        }
+    //    }
 }
