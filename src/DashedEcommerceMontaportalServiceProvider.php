@@ -2,9 +2,6 @@
 
 namespace Dashed\DashedEcommerceMontaportal;
 
-use Filament\PluginServiceProvider;
-use Illuminate\Console\Scheduling\Schedule;
-use Livewire\Livewire;
 use Dashed\DashedEcommerceCore\Models\Order;
 use Dashed\DashedEcommerceCore\Models\Product;
 use Dashed\DashedEcommerceMontaportal\Commands\PushOrdersToMontaportalCommand;
@@ -20,6 +17,9 @@ use Dashed\DashedEcommerceMontaportal\Livewire\Orders\ShowMontaportalOrder;
 use Dashed\DashedEcommerceMontaportal\Livewire\Products\EditMontaportalProduct;
 use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 use Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct;
+use Filament\PluginServiceProvider;
+use Illuminate\Console\Scheduling\Schedule;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 
 class DashedEcommerceMontaportalServiceProvider extends PluginServiceProvider

@@ -2,9 +2,9 @@
 
 namespace Dashed\DashedEcommerceMontaportal;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Dashed\DashedEcommerceCore\Events\Orders\OrderMarkedAsPaidEvent;
 use Dashed\DashedEcommerceMontaportal\Listeners\MarkOrderAsPushableListener;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class DashedEcommerceMontaportalEventServiceProvider extends ServiceProvider
 {

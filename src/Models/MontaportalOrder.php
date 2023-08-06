@@ -2,8 +2,8 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Dashed\DashedEcommerceCore\Models\Order;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 

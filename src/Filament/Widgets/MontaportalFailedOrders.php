@@ -2,12 +2,12 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Filament\Widgets;
 
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 
 class MontaportalFailedOrders extends BaseWidget
 {
