@@ -1,6 +1,6 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources;
+namespace Dashed\DashedEcommerceMontaportal\Filament\Resources;
 
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Placeholder;
@@ -11,9 +11,9 @@ use Filament\Resources\Table;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\EditMontaportalProduct;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\ListMontaportalProducts;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalProduct;
+use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\EditMontaportalProduct;
+use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\ListMontaportalProducts;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct;
 
 class MontaportalProductResource extends Resource
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Models;
+namespace Dashed\DashedEcommerceMontaportal\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Qubiqx\QcommerceEcommerceCore\Models\Product;
+use Dashed\DashedEcommerceCore\Models\Product;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -13,7 +13,7 @@ class MontaportalProduct extends Model
 
     protected static $logFillable = true;
 
-    protected $table = 'qcommerce__product_montaportal';
+    protected $table = 'dashed__product_montaportal';
 
     protected $fillable = [
         'product_id',

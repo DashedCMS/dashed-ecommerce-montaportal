@@ -13,7 +13,7 @@ class AddTrackAndTraceToMontaportal extends Migration
      */
     public function up()
     {
-        Schema::table('qcommerce__order_montaportal', function (Blueprint $table) {
+        Schema::table('dashed__order_montaportal', function (Blueprint $table) {
             $table->string('track_and_trace_links')->nullable();
             $table->tinyInteger('track_and_trace_present')->default(0);
         });

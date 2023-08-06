@@ -1,13 +1,13 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets;
+namespace Dashed\DashedEcommerceMontaportal\Filament\Widgets;
 
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 
 class MontaportalFailedOrders extends BaseWidget
 {

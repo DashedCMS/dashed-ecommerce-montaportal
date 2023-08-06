@@ -1,6 +1,6 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Livewire\Products;
+namespace Dashed\DashedEcommerceMontaportal\Livewire\Products;
 
 use Livewire\Component;
 
@@ -15,7 +15,7 @@ class EditMontaportalProduct extends Component
 
     public function render()
     {
-        return view('qcommerce-ecommerce-montaportal::products.components.show-montaportal-product');
+        return view('dashed-ecommerce-montaportal::products.components.show-montaportal-product');
     }
 
     public function submit()

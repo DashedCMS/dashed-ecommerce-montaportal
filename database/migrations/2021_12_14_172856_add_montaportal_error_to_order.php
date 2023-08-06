@@ -13,7 +13,7 @@ class AddMontaportalErrorToOrder extends Migration
      */
     public function up()
     {
-        Schema::table('qcommerce__order_montaportal', function (Blueprint $table) {
+        Schema::table('dashed__order_montaportal', function (Blueprint $table) {
             $table->string('error')->nullable();
         });
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Livewire\Orders;
+namespace Dashed\DashedEcommerceMontaportal\Livewire\Orders;
 
 use Livewire\Component;
 
@@ -15,7 +15,7 @@ class ShowMontaportalOrder extends Component
 
     public function render()
     {
-        return view('qcommerce-ecommerce-montaportal::orders.components.show-montaportal-order');
+        return view('dashed-ecommerce-montaportal::orders.components.show-montaportal-order');
     }
 
     public function submit()

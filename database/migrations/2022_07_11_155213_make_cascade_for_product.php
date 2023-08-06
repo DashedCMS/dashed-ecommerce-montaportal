@@ -12,11 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::table('qcommerce__product_montaportal', function (Blueprint $table) {
-            $table->dropForeign('qcommerce__product_montaportal_product_id_foreign');
+        Schema::table('dashed__product_montaportal', function (Blueprint $table) {
+            $table->dropForeign('dashed__product_montaportal_product_id_foreign');
             $table->foreignId('product_id')
                 ->change()
-                ->constrained('qcommerce__products')
+                ->constrained('dashed__products')
                 ->cascadeOnDelete();
         });
     }

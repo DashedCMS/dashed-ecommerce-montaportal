@@ -1,24 +1,24 @@
 {
-    "name": "qubiqx/qcommerce-ecommerce-montaportal",
-    "description": "This is my package qcommerce-ecommerce-montaportal",
+    "name": "dashed/dashed-ecommerce-montaportal",
+    "description": "This is my package dashed-ecommerce-montaportal",
     "keywords": [
-        "Qubiqx",
+        "Dashed",
         "laravel",
-        "qcommerce-ecommerce-montaportal"
+        "dashed-ecommerce-montaportal"
     ],
-    "homepage": "https://github.com/qubiqx/qcommerce-ecommerce-montaportal",
+    "homepage": "https://github.com/Dashed-DEV/dashed-ecommerce-montaportal",
     "license": "MIT",
     "authors": [
         {
             "name": "Robin van Maasakker",
-            "email": "robin@qubiqx.com",
+            "email": "robin@dashed.nl",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.2",
         "spatie/laravel-package-tools": "^1.15",
-        "qubiqx/montapacking": "*"
+        "dashed/montapacking": "*"
     },
     "require-dev": {
         "nunomaduro/collision": "^7.0",
@@ -30,13 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Qubiqx\\QcommerceEcommerceMontaportal\\": "src",
-            "Qubiqx\\QcommerceEcommerceMontaportal\\Database\\Factories\\": "database/factories"
+            "Dashed\\DashedEcommerceMontaportal\\": "src",
+            "Dashed\\DashedEcommerceMontaportal\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Qubiqx\\QcommerceEcommerceMontaportal\\Tests\\": "tests"
+            "Dashed\\DashedEcommerceMontaportal\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -53,11 +53,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Qubiqx\\QcommerceEcommerceMontaportal\\QcommerceEcommerceMontaportalServiceProvider",
-                "Qubiqx\\QcommerceEcommerceMontaportal\\QcommerceEcommerceMontaportalEventServiceProvider"
+                "Dashed\\DashedEcommerceMontaportal\\DashedEcommerceMontaportalServiceProvider",
+                "Dashed\\DashedEcommerceMontaportal\\DashedEcommerceMontaportalEventServiceProvider"
             ],
             "aliases": {
-                "QcommerceEcommerceMontaportal": "Qubiqx\\QcommerceEcommerceMontaportal\\Facades\\QcommerceEcommerceMontaportal"
+                "DashedEcommerceMontaportal": "Dashed\\DashedEcommerceMontaportal\\Facades\\DashedEcommerceMontaportal"
             }
         }
     },

@@ -1,21 +1,21 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Classes;
+namespace Dashed\DashedEcommerceMontaportal\Classes;
 
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Qubiqx\Montapacking\Client;
-use Qubiqx\QcommerceCore\Classes\Mails;
-use Qubiqx\QcommerceCore\Classes\Sites;
-use Qubiqx\QcommerceCore\Models\Customsetting;
-use Qubiqx\QcommerceEcommerceCore\Models\Order;
-use Qubiqx\QcommerceEcommerceCore\Models\OrderLog;
-use Qubiqx\QcommerceEcommerceCore\Models\Product;
-use Qubiqx\QcommerceEcommerceMontaportal\Mail\TrackandTraceMail;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\montaportalProduct;
+use Dashed\Montapacking\Client;
+use Dashed\DashedCore\Classes\Mails;
+use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedCore\Models\Customsetting;
+use Dashed\DashedEcommerceCore\Models\Order;
+use Dashed\DashedEcommerceCore\Models\OrderLog;
+use Dashed\DashedEcommerceCore\Models\Product;
+use Dashed\DashedEcommerceMontaportal\Mail\TrackandTraceMail;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
+use Dashed\DashedEcommerceMontaportal\Models\montaportalProduct;
 
 class Montaportal
 {

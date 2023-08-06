@@ -1,6 +1,6 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Filament\Pages\Settings;
+namespace Dashed\DashedEcommerceMontaportal\Filament\Pages\Settings;
 
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Tabs;
@@ -9,9 +9,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
-use Qubiqx\QcommerceCore\Classes\Sites;
-use Qubiqx\QcommerceCore\Models\Customsetting;
-use Qubiqx\QcommerceEcommerceMontaportal\Classes\Montaportal;
+use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedCore\Models\Customsetting;
+use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 
 class MontaportalSettingsPage extends Page implements HasForms
 {
@@ -20,7 +20,7 @@ class MontaportalSettingsPage extends Page implements HasForms
     protected static bool $shouldRegisterNavigation = false;
     protected static ?string $title = 'Montaportal shop';
 
-    protected static string $view = 'qcommerce-core::settings.pages.default-settings';
+    protected static string $view = 'dashed-core::settings.pages.default-settings';
 
     public function mount(): void
     {

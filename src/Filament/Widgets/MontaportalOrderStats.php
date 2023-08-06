@@ -1,10 +1,10 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets;
+namespace Dashed\DashedEcommerceMontaportal\Filament\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Card;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 
 class MontaportalOrderStats extends StatsOverviewWidget
 {

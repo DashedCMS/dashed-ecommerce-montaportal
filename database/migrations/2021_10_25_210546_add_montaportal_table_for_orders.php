@@ -13,10 +13,10 @@ class AddMontaportalTableForOrders extends Migration
      */
     public function up()
     {
-        Schema::create('qcommerce__order_montaportal', function (Blueprint $table) {
+        Schema::create('dashed__order_montaportal', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('order_id')->constrained('qcommerce__orders');
+            $table->foreignId('order_id')->constrained('dashed__orders');
             $table->string('montaportal_id')->nullable();
             $table->json('montaportal_pre_order_ids')->nullable();
             $table->tinyInteger('pushed_to_montaportal')->default(0);

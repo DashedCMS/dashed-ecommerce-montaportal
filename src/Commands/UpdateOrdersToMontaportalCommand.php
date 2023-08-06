@@ -1,10 +1,10 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Commands;
+namespace Dashed\DashedEcommerceMontaportal\Commands;
 
 use Illuminate\Console\Command;
-use Qubiqx\QcommerceEcommerceCore\Models\Order;
-use Qubiqx\QcommerceEcommerceMontaportal\Classes\Montaportal;
+use Dashed\DashedEcommerceCore\Models\Order;
+use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 
 class UpdateOrdersToMontaportalCommand extends Command
 {

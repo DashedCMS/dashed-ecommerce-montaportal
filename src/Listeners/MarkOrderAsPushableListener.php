@@ -1,9 +1,9 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Listeners;
+namespace Dashed\DashedEcommerceMontaportal\Listeners;
 
-use Qubiqx\QcommerceEcommerceCore\Events\Orders\OrderMarkedAsPaidEvent;
-use Qubiqx\QcommerceEcommerceMontaportal\Classes\Montaportal;
+use Dashed\DashedEcommerceCore\Events\Orders\OrderMarkedAsPaidEvent;
+use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 
 class MarkOrderAsPushableListener
 {

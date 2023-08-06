@@ -1,30 +1,30 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal;
+namespace Dashed\DashedEcommerceMontaportal;
 
 use Filament\PluginServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 use Livewire\Livewire;
-use Qubiqx\QcommerceEcommerceCore\Models\Order;
-use Qubiqx\QcommerceEcommerceCore\Models\Product;
-use Qubiqx\QcommerceEcommerceMontaportal\Commands\PushOrdersToMontaportalCommand;
-use Qubiqx\QcommerceEcommerceMontaportal\Commands\PushProductsToMontaportal;
-use Qubiqx\QcommerceEcommerceMontaportal\Commands\SyncProductStockWithMontaportal;
-use Qubiqx\QcommerceEcommerceMontaportal\Commands\UpdateOrdersToMontaportalCommand;
-use Qubiqx\QcommerceEcommerceMontaportal\Commands\UpdateOrderTrackAndTraceFromMontaportalCommand;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Pages\Settings\MontaportalSettingsPage;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets\MontaportalFailedOrders;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Widgets\MontaportalOrderStats;
-use Qubiqx\QcommerceEcommerceMontaportal\Livewire\Orders\ShowMontaportalOrder;
-use Qubiqx\QcommerceEcommerceMontaportal\Livewire\Products\EditMontaportalProduct;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalOrder;
-use Qubiqx\QcommerceEcommerceMontaportal\Models\MontaportalProduct;
+use Dashed\DashedEcommerceCore\Models\Order;
+use Dashed\DashedEcommerceCore\Models\Product;
+use Dashed\DashedEcommerceMontaportal\Commands\PushOrdersToMontaportalCommand;
+use Dashed\DashedEcommerceMontaportal\Commands\PushProductsToMontaportal;
+use Dashed\DashedEcommerceMontaportal\Commands\SyncProductStockWithMontaportal;
+use Dashed\DashedEcommerceMontaportal\Commands\UpdateOrdersToMontaportalCommand;
+use Dashed\DashedEcommerceMontaportal\Commands\UpdateOrderTrackAndTraceFromMontaportalCommand;
+use Dashed\DashedEcommerceMontaportal\Filament\Pages\Settings\MontaportalSettingsPage;
+use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource;
+use Dashed\DashedEcommerceMontaportal\Filament\Widgets\MontaportalFailedOrders;
+use Dashed\DashedEcommerceMontaportal\Filament\Widgets\MontaportalOrderStats;
+use Dashed\DashedEcommerceMontaportal\Livewire\Orders\ShowMontaportalOrder;
+use Dashed\DashedEcommerceMontaportal\Livewire\Products\EditMontaportalProduct;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct;
 use Spatie\LaravelPackageTools\Package;
 
-class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
+class DashedEcommerceMontaportalServiceProvider extends PluginServiceProvider
 {
-    public static string $name = 'qcommerce-ecommerce-montaportal';
+    public static string $name = 'dashed-ecommerce-montaportal';
 
     public function bootingPackage()
     {
@@ -86,7 +86,7 @@ class QcommerceEcommerceMontaportalServiceProvider extends PluginServiceProvider
         );
 
         $package
-            ->name('qcommerce-ecommerce-montaportal')
+            ->name('dashed-ecommerce-montaportal')
             ->hasViews()
             ->hasCommands([
                 PushProductsToMontaportal::class,

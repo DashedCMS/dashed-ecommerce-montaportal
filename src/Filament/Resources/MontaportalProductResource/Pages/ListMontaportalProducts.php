@@ -1,9 +1,9 @@
 <?php
 
-namespace Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages;
+namespace Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages;
 
 use Filament\Resources\Pages\ListRecords;
-use Qubiqx\QcommerceEcommerceMontaportal\Filament\Resources\MontaportalProductResource;
+use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource;
 
 class ListMontaportalProducts extends ListRecords
 {
