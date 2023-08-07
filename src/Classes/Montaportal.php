@@ -12,10 +12,10 @@ use Dashed\DashedEcommerceCore\Models\Product;
 use Dashed\DashedEcommerceMontaportal\Mail\TrackandTraceMail;
 use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 use Dashed\DashedEcommerceMontaportal\Models\montaportalProduct;
-use Dashed\Montapacking\Client;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Qubiqx\Montapacking\Client;
 
 class Montaportal
 {
