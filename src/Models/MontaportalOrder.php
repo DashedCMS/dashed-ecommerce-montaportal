@@ -25,11 +25,6 @@ class MontaportalOrder extends Model
         'error',
     ];
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
-
     protected $casts = [
         'montaportal_pre_order_ids' => 'array',
         'track_and_trace_links' => 'array',
