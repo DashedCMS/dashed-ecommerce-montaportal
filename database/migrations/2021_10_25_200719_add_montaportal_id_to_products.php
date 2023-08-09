@@ -16,8 +16,14 @@ class AddMontaportalIdToProducts extends Migration
         Schema::create('dashed__product_montaportal', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('product_id')->constrained('dashed__products');
+            $table->foreignId('product_id')
+                ->constrained('dashed__products')
+                ->cascadeOnDelete();
             $table->string('montaportal_id');
+            $table->boolean('sync_stock')
+                ->default(true);
+            $table->string('error')
+                ->nullable();
 
             $table->timestamps();
         });
