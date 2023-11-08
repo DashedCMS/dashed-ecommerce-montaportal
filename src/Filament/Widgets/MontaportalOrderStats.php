@@ -2,8 +2,8 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Filament\Widgets;
 
-use Filament\Widgets\StatsOverviewWidget;
 use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
+use Filament\Widgets\StatsOverviewWidget;
 
 class MontaportalOrderStats extends StatsOverviewWidget
 {

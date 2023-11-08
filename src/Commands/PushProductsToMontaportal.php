@@ -2,9 +2,9 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Commands;
 
-use Illuminate\Console\Command;
 use Dashed\DashedEcommerceCore\Models\Product;
 use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
+use Illuminate\Console\Command;
 
 class PushProductsToMontaportal extends Command
 {
