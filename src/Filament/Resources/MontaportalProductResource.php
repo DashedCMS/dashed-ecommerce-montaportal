@@ -2,18 +2,18 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Filament\Resources;
 
-use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\EditMontaportalProduct;
-use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\ListMontaportalProducts;
-use Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Toggle;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables\Columns\BooleanColumn;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\Placeholder;
+use Filament\Tables\Columns\BooleanColumn;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct;
+use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\EditMontaportalProduct;
+use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\ListMontaportalProducts;
 
 class MontaportalProductResource extends Resource
 {

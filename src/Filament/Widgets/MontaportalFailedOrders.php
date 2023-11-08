@@ -2,12 +2,12 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Filament\Widgets;
 
-use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 
 class MontaportalFailedOrders extends BaseWidget
 {
@@ -43,7 +43,7 @@ class MontaportalFailedOrders extends BaseWidget
             Action::make('view_order')
                 ->label('Bekijk bestelling')
                 ->button()
-                ->url(fn ($record) => route('filament.resources.orders.view', [$record->order_id])),
+                ->url(fn ($record) => route('filament.dashed.resources.orders.view', [$record->order_id])),
         ];
     }
 }

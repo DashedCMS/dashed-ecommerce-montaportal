@@ -2,25 +2,23 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Filament\Pages\Settings;
 
-use Dashed\DashedCore\Classes\Sites;
-use Dashed\DashedCore\Models\Customsetting;
-use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
-use Filament\Forms\Components\Placeholder;
+use Filament\Pages\Page;
 use Filament\Forms\Components\Tabs;
+use Dashed\DashedCore\Classes\Sites;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Pages\Page;
+use Filament\Notifications\Notification;
+use Filament\Forms\Components\Placeholder;
+use Dashed\DashedCore\Models\Customsetting;
+use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 
-class MontaportalSettingsPage extends Page implements HasForms
+class MontaportalSettingsPage extends Page
 {
-    use InteractsWithForms;
-
     protected static bool $shouldRegisterNavigation = false;
     protected static ?string $title = 'Montaportal shop';
 
     protected static string $view = 'dashed-core::settings.pages.default-settings';
+    public array $data = [];
 
     public function mount(): void
     {
@@ -59,15 +57,11 @@ class MontaportalSettingsPage extends Page implements HasForms
                     ]),
                 TextInput::make("montaportal_username_{$site['id']}")
                     ->label('Gebruikersnaam')
-                    ->rules([
-                        'max:255',
-                    ]),
+                    ->maxLength(255),
                 TextInput::make("montaportal_password_{$site['id']}")
                     ->label('Wachtwoord')
                     ->type('password')
-                    ->rules([
-                        'max:255',
-                    ]),
+                    ->maxLength(255),
             ];
 
             $tabs[] = Tab::make($site['id'])
@@ -84,6 +78,11 @@ class MontaportalSettingsPage extends Page implements HasForms
         return $tabGroups;
     }
 
+    public function getFormStatePath(): ?string
+    {
+        return 'data';
+    }
+
     public function submit()
     {
         $sites = Sites::getSites();
@@ -94,7 +93,10 @@ class MontaportalSettingsPage extends Page implements HasForms
             Customsetting::set('montaportal_connected', Montaportal::isConnected($site['id']), $site['id']);
         }
 
-        $this->notify('success', 'De Montaportal instellingen zijn opgeslagen');
+        Notification::make()
+            ->title('De Montaportal instellingen zijn opgeslagen')
+            ->success()
+            ->send();
 
         return redirect(MontaportalSettingsPage::getUrl());
     }
