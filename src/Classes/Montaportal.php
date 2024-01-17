@@ -335,6 +335,7 @@ class Montaportal
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal because not all products are pushed to Montaportal');
                 $montaPortalOrder->pushed_to_montaportal = 2;
                 $montaPortalOrder->save();
+
                 return false;
             }
 
@@ -345,7 +346,7 @@ class Montaportal
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
                 if (! $orderProduct->product->is_bundle) {
                     if ($orderProduct->is_pre_order && $orderProduct->pre_order_restocked_date && Carbon::parse($orderProduct->pre_order_restocked_date) > Carbon::now()->endOfDay()) {
-//                        dd($orderProduct->product);
+                        //                        dd($orderProduct->product);
                         $preOrderedOrderedProducts[] = [
                             'Sku' => $orderProduct->product->montaportalProduct->montaportal_id,
                             'OrderedQuantity' => $orderProduct->quantity,
