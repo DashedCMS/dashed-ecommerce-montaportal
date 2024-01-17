@@ -21,7 +21,7 @@ class ShowMontaportalOrder extends Component
 
     public function submit()
     {
-        if (!$this->order->montaPortalOrder) {
+        if (! $this->order->montaPortalOrder) {
             Notification::make()
                 ->danger()
                 ->title('De bestelling mag niet naar Montaportal gepushed worden.')
