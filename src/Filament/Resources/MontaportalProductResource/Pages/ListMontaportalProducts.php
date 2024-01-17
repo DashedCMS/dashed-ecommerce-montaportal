@@ -2,8 +2,8 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages;
 
-use Filament\Resources\Pages\ListRecords;
 use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource;
+use Filament\Resources\Pages\ListRecords;
 
 class ListMontaportalProducts extends ListRecords
 {
