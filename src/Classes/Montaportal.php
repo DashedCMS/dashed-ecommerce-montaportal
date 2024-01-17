@@ -313,7 +313,7 @@ class Montaportal
             return false;
         }
 
-        if (MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('pushed_to_montaportal', 1)->where('id', '!=', $montaPortalOrder)->count()) {
+        if (MontaportalOrder::where('order_id', $montaPortalOrder->order_id)->where('pushed_to_montaportal', 1)->where('id', '!=', $montaPortalOrder->id)->count()) {
             $montaPortalOrder->delete();
 
             return false;
