@@ -458,7 +458,7 @@ class Montaportal
 
             return true;
         } catch (Exception $e) {
-            dump($e->getMessage());
+            dump($e->getMessage(), $montaPortalOrder->order->downloadInvoiceUrl());
             if ($montaPortalOrder->pushed_to_montaportal != 2) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal with error: ' . $e->getMessage());
                 $montaPortalOrder->error = $e->getMessage();
