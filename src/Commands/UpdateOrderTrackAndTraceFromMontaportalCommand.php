@@ -2,9 +2,9 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Commands;
 
+use Illuminate\Console\Command;
 use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
-use Illuminate\Console\Command;
 
 class UpdateOrderTrackAndTraceFromMontaportalCommand extends Command
 {
