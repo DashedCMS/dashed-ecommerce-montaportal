@@ -453,7 +453,7 @@ class Montaportal
                         $montaPortalOrder->pushed_to_montaportal = 2;
                         $montaPortalOrder->save();
 
-                        if($montaPortalOrder->error == 'An order with that Webshop Order ID already exists'){
+                        if($montaPortalOrder->error == 'An order with that Webshop Order ID already exists') {
                             $montaPortalOrder->error = '';
                             $montaPortalOrder->pushed_to_montaportal = 1;
                             $montaPortalOrder->save();
