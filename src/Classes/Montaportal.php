@@ -452,13 +452,19 @@ class Montaportal
                         $montaPortalOrder->error = $response['error'] ?? serialize($response);
                         $montaPortalOrder->pushed_to_montaportal = 2;
                         $montaPortalOrder->save();
+
+                        if($montaPortalOrder->error == 'An order with that Webshop Order ID already exists'){
+                            $montaPortalOrder->error = '';
+                            $montaPortalOrder->pushed_to_montaportal = 1;
+                            $montaPortalOrder->save();
+                        }
                     }
                 }
             }
 
             return true;
         } catch (Exception $e) {
-            dump($e->getMessage(), $montaPortalOrder->order->downloadInvoiceUrl());
+            dump($e->getMessage(), 'Order ID: ' . $montaPortalOrder->order_id, $montaPortalOrder->order->downloadInvoiceUrl());
             if ($montaPortalOrder->pushed_to_montaportal != 2) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal with error: ' . $e->getMessage());
                 $montaPortalOrder->error = $e->getMessage();
