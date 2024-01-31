@@ -21,7 +21,7 @@ class ShowMontaportalOrder extends Component
 
     public function submit()
     {
-        if (! $this->order->montaPortalOrder) {
+        if (!$this->order->montaPortalOrder) {
             Notification::make()
                 ->danger()
                 ->title('De bestelling mag niet naar Montaportal gepushed worden.')
@@ -45,6 +45,24 @@ class ShowMontaportalOrder extends Component
         Notification::make()
             ->success()
             ->title('De bestelling wordt binnen enkele minuten opnieuw naar Montaportal gepushed.')
+            ->send();
+    }
+
+    public function createMontaportalOrder()
+    {
+        if ($this->order->montaPortalOrder) {
+            Notification::make()
+                ->danger()
+                ->title('De bestelling is al aan Montaportal gekoppeld.')
+                ->send();
+        }
+
+        $this->order->montaPortalOrder()->create();
+
+        $this->dispatch('refreshPage');
+        Notification::make()
+            ->success()
+            ->title('De bestelling wordt binnen enkele minuten naar Montaportal gepushed.')
             ->send();
     }
 }
