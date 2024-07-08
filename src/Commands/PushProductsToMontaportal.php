@@ -45,6 +45,7 @@ class PushProductsToMontaportal extends Command
             ->where('price', '!=', null)
             ->notParentProduct()
             ->isNotBundle()
+            ->where('fulfillment_provider', 'montaportal')
             ->get();
 
         foreach ($products as $product) {

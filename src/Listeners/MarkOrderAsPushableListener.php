@@ -25,7 +25,7 @@ class MarkOrderAsPushableListener
      */
     public function handle(OrderMarkedAsPaidEvent $event)
     {
-        if (Montaportal::isConnected($event->order->site_id)) {
+        if (Montaportal::isConnected($event->order->site_id) && $event->order->eligibleForFulfillmentProvider('montaportal')) {
             $event->order->montaPortalOrder()->create([]);
         }
     }

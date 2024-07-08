@@ -4,6 +4,7 @@ namespace Dashed\DashedEcommerceMontaportal;
 
 use Dashed\DashedEcommerceCore\Models\Order;
 use Dashed\DashedEcommerceCore\Models\Product;
+use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 use Dashed\DashedEcommerceMontaportal\Commands\PushOrdersToMontaportalCommand;
 use Dashed\DashedEcommerceMontaportal\Commands\PushProductsToMontaportal;
 use Dashed\DashedEcommerceMontaportal\Commands\SyncProductStockWithMontaportal;
@@ -78,6 +79,16 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
                 'show-montaportal-order' => [
                     'name' => 'show-montaportal-order',
                     'width' => 'sidebar',
+                ],
+            ])
+        );
+
+        ecommerce()->builder(
+            'fulfillmentProviders',
+            array_merge(ecommerce()->builder('fulfillmentProviders'), [
+                'montaportal' => [
+                    'name' => 'MontaPortal',
+                    'class' => Montaportal::class,
                 ],
             ])
         );
