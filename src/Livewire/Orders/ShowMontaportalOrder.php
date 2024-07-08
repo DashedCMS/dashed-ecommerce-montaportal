@@ -26,18 +26,21 @@ class ShowMontaportalOrder extends Component
                 ->danger()
                 ->title('De bestelling mag niet naar Montaportal gepushed worden.')
                 ->send();
+
             return;
         } elseif ($this->order->montaPortalOrder->pushed_to_montaportal == 1) {
             Notification::make()
                 ->danger()
                 ->title('De bestelling is al naar Montaportal gepushed.')
                 ->send();
+
             return;
         } elseif ($this->order->montaPortalOrder->pushed_to_montaportal == 0) {
             Notification::make()
                 ->danger()
                 ->title('De bestelling wordt al naar Montaportal gepushed.')
                 ->send();
+
             return;
         }
 
@@ -58,6 +61,7 @@ class ShowMontaportalOrder extends Component
                 ->danger()
                 ->title('De bestelling is al aan Montaportal gekoppeld.')
                 ->send();
+
             return;
         }
 
@@ -72,19 +76,21 @@ class ShowMontaportalOrder extends Component
 
     public function deleteMontaportalOrder()
     {
-        if (!$this->order->montaPortalOrder) {
+        if (! $this->order->montaPortalOrder) {
             Notification::make()
                 ->danger()
                 ->title('De bestelling is al uit Montaportal verwijderd.')
                 ->send();
+
             return;
         }
 
-        if($this->order->montaPortalOrder->pushed_to_montaportal == 1){
+        if($this->order->montaPortalOrder->pushed_to_montaportal == 1) {
             Notification::make()
                 ->danger()
                 ->title('De bestelling is al naar Montaportal gepushed.')
                 ->send();
+
             return;
         }
 
