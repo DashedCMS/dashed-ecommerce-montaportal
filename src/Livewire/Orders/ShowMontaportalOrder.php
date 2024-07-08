@@ -26,16 +26,19 @@ class ShowMontaportalOrder extends Component
                 ->danger()
                 ->title('De bestelling mag niet naar Montaportal gepushed worden.')
                 ->send();
+            return;
         } elseif ($this->order->montaPortalOrder->pushed_to_montaportal == 1) {
             Notification::make()
                 ->danger()
                 ->title('De bestelling is al naar Montaportal gepushed.')
                 ->send();
+            return;
         } elseif ($this->order->montaPortalOrder->pushed_to_montaportal == 0) {
             Notification::make()
                 ->danger()
                 ->title('De bestelling wordt al naar Montaportal gepushed.')
                 ->send();
+            return;
         }
 
         $this->order->montaPortalOrder->pushed_to_montaportal = 0;
@@ -55,6 +58,7 @@ class ShowMontaportalOrder extends Component
                 ->danger()
                 ->title('De bestelling is al aan Montaportal gekoppeld.')
                 ->send();
+            return;
         }
 
         $this->order->montaPortalOrder()->create();
@@ -63,6 +67,33 @@ class ShowMontaportalOrder extends Component
         Notification::make()
             ->success()
             ->title('De bestelling wordt binnen enkele minuten naar Montaportal gepushed.')
+            ->send();
+    }
+
+    public function deleteMontaportalOrder()
+    {
+        if (!$this->order->montaPortalOrder) {
+            Notification::make()
+                ->danger()
+                ->title('De bestelling is al uit Montaportal verwijderd.')
+                ->send();
+            return;
+        }
+
+        if($this->order->montaPortalOrder->pushed_to_montaportal == 1){
+            Notification::make()
+                ->danger()
+                ->title('De bestelling is al naar Montaportal gepushed.')
+                ->send();
+            return;
+        }
+
+        $this->order->montaPortalOrder()->delete();
+
+        $this->dispatch('refreshPage');
+        Notification::make()
+            ->success()
+            ->title('De bestelling is uit Montaportal verwijderd.')
             ->send();
     }
 }
