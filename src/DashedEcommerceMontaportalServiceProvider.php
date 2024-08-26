@@ -101,6 +101,7 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
             ->name('dashed-ecommerce-montaportal')
             ->hasViews()
             ->hasCommands([
+                DeleteMontaportalProducts::class,
                 PushProductsToMontaportal::class,
                 SyncProductStockWithMontaportal::class,
                 PushOrdersToMontaportalCommand::class,
