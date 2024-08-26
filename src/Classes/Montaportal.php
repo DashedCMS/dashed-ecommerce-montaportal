@@ -334,6 +334,7 @@ class Montaportal
             if (! $allProductsPushedToEfulfillment) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal because not all products are pushed to Montaportal');
                 $montaPortalOrder->pushed_to_montaportal = 2;
+                $montaPortalOrder->error = 'Not all products are pushed to Montaportal';
                 $montaPortalOrder->save();
 
                 return false;
@@ -467,13 +468,14 @@ class Montaportal
 
             return true;
         } catch (Exception $e) {
-            dump($e->getMessage(), 'Order ID: ' . $montaPortalOrder->order_id, $montaPortalOrder->order->downloadInvoiceUrl());
+            dump($e->getMessage(), 'Order ID: ' . $montaPortalOrder->order_id);
             if ($montaPortalOrder->pushed_to_montaportal != 2) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal with error: ' . $e->getMessage());
-                $montaPortalOrder->error = $e->getMessage();
                 $montaPortalOrder->pushed_to_montaportal = 2;
                 $montaPortalOrder->save();
             }
+            $montaPortalOrder->error = $e->getMessage();
+            $montaPortalOrder->save();
 
             if(str($montaPortalOrder->error)->contains('An order with that Webshop Order ID already exists')) {
                 $montaPortalOrder->error = '';
