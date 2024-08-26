@@ -5,6 +5,7 @@ namespace Dashed\DashedEcommerceMontaportal;
 use Dashed\DashedEcommerceCore\Models\Order;
 use Dashed\DashedEcommerceCore\Models\Product;
 use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
+use Dashed\DashedEcommerceMontaportal\Commands\DeleteMontaportalProducts;
 use Dashed\DashedEcommerceMontaportal\Commands\PushOrdersToMontaportalCommand;
 use Dashed\DashedEcommerceMontaportal\Commands\PushProductsToMontaportal;
 use Dashed\DashedEcommerceMontaportal\Commands\SyncProductStockWithMontaportal;
@@ -39,6 +40,9 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
 
         $this->app->booted(function () {
             $schedule = app(Schedule::class);
+            $schedule->command(DeleteMontaportalProducts::class)
+                ->everyFiveMinutes()
+                ->withoutOverlapping();
             $schedule->command(PushProductsToMontaportal::class)
                 ->everyFiveMinutes()
                 ->withoutOverlapping();
