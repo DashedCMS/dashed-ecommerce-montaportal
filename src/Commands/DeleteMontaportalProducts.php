@@ -2,8 +2,6 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Commands;
 
-use Dashed\DashedEcommerceCore\Models\Product;
-use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 use Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct;
 use Illuminate\Console\Command;
 
@@ -41,7 +39,7 @@ class DeleteMontaportalProducts extends Command
     public function handle()
     {
         foreach (MontaportalProduct::all() as $montaportalProduct) {
-            if (!$montaportalProduct->product) {
+            if (! $montaportalProduct->product) {
                 $montaportalProduct->delete();
             }
         }
