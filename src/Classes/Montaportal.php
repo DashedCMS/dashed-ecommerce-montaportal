@@ -323,10 +323,12 @@ class Montaportal
             $apiClient = self::initialize();
 
             $allProductsPushedToEfulfillment = true;
+            $missingProducts = [];
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
                 if (! $orderProduct->product->is_bundle) {
                     if (! $orderProduct->product->montaportalProduct) {
                         $allProductsPushedToEfulfillment = false;
+                        $missingProducts[] = $orderProduct->name . ' (' . $orderProduct->id . ')';
                     }
                 }
             }
@@ -334,7 +336,7 @@ class Montaportal
             if (! $allProductsPushedToEfulfillment) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal because not all products are pushed to Montaportal');
                 $montaPortalOrder->pushed_to_montaportal = 2;
-                $montaPortalOrder->error = 'Not all products are pushed to Montaportal';
+                $montaPortalOrder->error = 'Not all products are pushed to Montaportal: ' . implode(', ', $missingProducts);
                 $montaPortalOrder->save();
 
                 return false;
@@ -436,6 +438,7 @@ class Montaportal
                 $montaPortalOrder->save();
             }
 
+
             if (isset($response)) {
                 if ($response->WebshopOrderId) {
                     $montaPortalOrder->error = '';
@@ -468,7 +471,7 @@ class Montaportal
 
             return true;
         } catch (Exception $e) {
-            dump($e->getMessage(), 'Order ID: ' . $montaPortalOrder->order_id);
+//            dump($e->getMessage(), 'Order ID: ' . $montaPortalOrder->order_id);
             if ($montaPortalOrder->pushed_to_montaportal != 2) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal with error: ' . $e->getMessage());
                 $montaPortalOrder->pushed_to_montaportal = 2;
