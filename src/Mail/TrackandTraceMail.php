@@ -2,12 +2,12 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Mail;
 
-use Dashed\DashedCore\Models\Customsetting;
-use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
-use Dashed\DashedTranslations\Models\Translation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Dashed\DashedCore\Models\Customsetting;
+use Dashed\DashedTranslations\Models\Translation;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 
 class TrackandTraceMail extends Mailable
 {

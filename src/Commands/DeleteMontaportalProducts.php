@@ -2,8 +2,8 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Commands;
 
-use Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct;
 use Illuminate\Console\Command;
+use Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct;
 
 class DeleteMontaportalProducts extends Command
 {

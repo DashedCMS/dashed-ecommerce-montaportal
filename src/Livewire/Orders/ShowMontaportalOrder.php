@@ -2,8 +2,8 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Livewire\Orders;
 
-use Filament\Notifications\Notification;
 use Livewire\Component;
+use Filament\Notifications\Notification;
 
 class ShowMontaportalOrder extends Component
 {
