@@ -369,7 +369,7 @@ class Montaportal
                 }
             }
 
-            if(! $hasAllProductsPushedToMonta) {
+            if (! $hasAllProductsPushedToMonta) {
                 return false;
             }
 
@@ -460,7 +460,7 @@ class Montaportal
                         $montaPortalOrder->pushed_to_montaportal = 2;
                         $montaPortalOrder->save();
 
-                        if(str($montaPortalOrder->error)->contains('An order with that Webshop Order ID already exists')) {
+                        if (str($montaPortalOrder->error)->contains('An order with that Webshop Order ID already exists')) {
                             $montaPortalOrder->error = '';
                             $montaPortalOrder->pushed_to_montaportal = 1;
                             $montaPortalOrder->save();
@@ -480,7 +480,7 @@ class Montaportal
             $montaPortalOrder->error = $e->getMessage();
             $montaPortalOrder->save();
 
-            if(str($montaPortalOrder->error)->contains('An order with that Webshop Order ID already exists')) {
+            if (str($montaPortalOrder->error)->contains('An order with that Webshop Order ID already exists')) {
                 $montaPortalOrder->error = '';
                 $montaPortalOrder->pushed_to_montaportal = 1;
                 $montaPortalOrder->save();

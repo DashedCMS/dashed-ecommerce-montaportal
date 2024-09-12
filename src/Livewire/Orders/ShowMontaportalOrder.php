@@ -85,7 +85,7 @@ class ShowMontaportalOrder extends Component
             return;
         }
 
-        if($this->order->montaPortalOrder->pushed_to_montaportal == 1) {
+        if ($this->order->montaPortalOrder->pushed_to_montaportal == 1) {
             Notification::make()
                 ->danger()
                 ->title('De bestelling is al naar Montaportal gepushed.')

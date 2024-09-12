@@ -34,14 +34,14 @@ class MarkOrderAsPushableListener
             $orderLog->tag = 'system.note.created';
             $orderLog->note = 'Montaportal order created';
             $orderLog->save();
-        } elseif (!Montaportal::isConnected($event->order->site_id)) {
+        } elseif (! Montaportal::isConnected($event->order->site_id)) {
             $orderLog = new OrderLog();
             $orderLog->order_id = $this->id;
             $orderLog->user_id = null;
             $orderLog->tag = 'system.note.created';
             $orderLog->note = 'Montaportal order not created, site not connected';
             $orderLog->save();
-        }elseif(!$event->order->eligibleForFulfillmentProvider('montaportal')){
+        } elseif (! $event->order->eligibleForFulfillmentProvider('montaportal')) {
             $orderLog = new OrderLog();
             $orderLog->order_id = $this->id;
             $orderLog->user_id = null;
