@@ -33,7 +33,6 @@ class MarkOrderAsPushableListener
             $orderLog->user_id = null;
             $orderLog->tag = 'system.note.created';
             $orderLog->note = 'Montaportal order created';
-            $orderLog->is_system = true;
             $orderLog->save();
         } elseif (! Montaportal::isConnected($event->order->site_id)) {
             $orderLog = new OrderLog();
@@ -41,7 +40,6 @@ class MarkOrderAsPushableListener
             $orderLog->user_id = null;
             $orderLog->tag = 'system.note.created';
             $orderLog->note = 'Montaportal order not created, site not connected';
-            $orderLog->is_system = true;
             $orderLog->save();
         } elseif (! $event->order->eligibleForFulfillmentProvider('montaportal')) {
             $orderLog = new OrderLog();
@@ -49,7 +47,6 @@ class MarkOrderAsPushableListener
             $orderLog->user_id = null;
             $orderLog->tag = 'system.note.created';
             $orderLog->note = 'Montaportal order not created, order not eligible for Montaportal';
-            $orderLog->is_system = true;
             $orderLog->save();
         }
     }
