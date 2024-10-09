@@ -22,6 +22,14 @@ class MontaportalProduct extends Model
         'error',
     ];
 
+    public static function booted()
+    {
+        static::created(function ($montaportalProduct) {
+            $montaportalProduct->sync_stock = 0;
+            $montaportalProduct->save();
+        });
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();

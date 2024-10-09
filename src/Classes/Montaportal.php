@@ -74,6 +74,7 @@ class Montaportal
             $montaportalProduct = new montaportalProduct();
             $montaportalProduct->product_id = $product->id;
             $montaportalProduct->montaportal_id = $montaProduct->Sku;
+            $montaportalProduct->sync_stock = 0;
             $montaportalProduct->save();
 
             return true;
