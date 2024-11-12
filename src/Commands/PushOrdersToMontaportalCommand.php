@@ -13,7 +13,7 @@ class PushOrdersToMontaportalCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'montaportal:push-orders';
+    protected $signature = 'montaportal:push-orders {--debug}';
 
     /**
      * The console command description.
@@ -39,6 +39,7 @@ class PushOrdersToMontaportalCommand extends Command
      */
     public function handle()
     {
+        dd($this->argument('debug'));
         //        if (env('APP_ENV') != 'local') {
         //        MontaportalOrder::where('error', 'LIKE', '%An order with that Webshop Order ID already exists%')->delete();
         $montaPortalOrders = MontaportalOrder::where('pushed_to_montaportal', '!=', 1)->with(['order'])->get();
