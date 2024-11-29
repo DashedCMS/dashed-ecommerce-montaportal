@@ -29,10 +29,10 @@ class SyncUnconnectedMontaportalOrders extends Command
         $count = 0;
 
         foreach (\Dashed\DashedEcommerceCore\Models\Order::where('created_at', '>=', now()->subMinutes(5))->isPaid()->get() as $order) {
-            if (!$order->montaPortalOrder) {
+            if (! $order->montaPortalOrder) {
                 $count++;
                 $this->info('Creating Montaportal order for order: ' . $order->id);
-                if (!$isDryRun) {
+                if (! $isDryRun) {
                     $order->montaPortalOrder()->create([]);
                 }
             }

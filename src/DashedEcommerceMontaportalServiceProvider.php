@@ -2,7 +2,6 @@
 
 namespace Dashed\DashedEcommerceMontaportal;
 
-use Dashed\DashedEcommerceMontaportal\Commands\SyncUnconnectedMontaportalOrders;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Illuminate\Console\Scheduling\Schedule;
@@ -18,6 +17,7 @@ use Dashed\DashedEcommerceMontaportal\Livewire\Orders\ShowMontaportalOrder;
 use Dashed\DashedEcommerceMontaportal\Commands\PushOrdersToMontaportalCommand;
 use Dashed\DashedEcommerceMontaportal\Commands\SyncProductStockWithMontaportal;
 use Dashed\DashedEcommerceMontaportal\Livewire\Products\EditMontaportalProduct;
+use Dashed\DashedEcommerceMontaportal\Commands\SyncUnconnectedMontaportalOrders;
 use Dashed\DashedEcommerceMontaportal\Commands\UpdateOrdersToMontaportalCommand;
 use Dashed\DashedEcommerceMontaportal\Filament\Pages\Settings\MontaportalSettingsPage;
 use Dashed\DashedEcommerceMontaportal\Commands\UpdateOrderTrackAndTraceFromMontaportalCommand;
