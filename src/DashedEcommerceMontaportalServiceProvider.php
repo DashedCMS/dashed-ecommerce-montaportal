@@ -2,6 +2,7 @@
 
 namespace Dashed\DashedEcommerceMontaportal;
 
+use Dashed\DashedEcommerceMontaportal\Commands\SyncUnconnectedMontaportalOrders;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Illuminate\Console\Scheduling\Schedule;
@@ -58,6 +59,9 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
             $schedule->command(UpdateOrdersToMontaportalCommand::class)
                 ->everyFifteenMinutes()
                 ->withoutOverlapping();
+            $schedule->command(SyncUnconnectedMontaportalOrders::class)
+                ->everyMinute()
+                ->withoutOverlapping();
         });
     }
 
@@ -107,6 +111,7 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
                 PushOrdersToMontaportalCommand::class,
                 UpdateOrdersToMontaportalCommand::class,
                 UpdateOrderTrackAndTraceFromMontaportalCommand::class,
+                SyncUnconnectedMontaportalOrders::class,
             ]);
     }
 }
