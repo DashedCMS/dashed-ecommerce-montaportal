@@ -2,19 +2,19 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Classes;
 
-use Dashed\DashedTranslations\Models\Translation;
 use Exception;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Http;
 use Qubiqx\Montapacking\Client;
 use Dashed\DashedCore\Classes\Mails;
 use Dashed\DashedCore\Classes\Sites;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Dashed\DashedCore\Models\Customsetting;
 use Dashed\DashedEcommerceCore\Models\Order;
 use Dashed\DashedEcommerceCore\Models\Product;
 use Dashed\DashedEcommerceCore\Models\OrderLog;
+use Dashed\DashedTranslations\Models\Translation;
 use Dashed\DashedEcommerceMontaportal\Mail\TrackandTraceMail;
 use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 use Dashed\DashedEcommerceMontaportal\Models\montaportalProduct;
@@ -23,7 +23,7 @@ class Montaportal
 {
     public static function isConnected($siteId = null)
     {
-        if (!$siteId) {
+        if (! $siteId) {
             $siteId = Sites::getActive();
         }
 
@@ -39,7 +39,7 @@ class Montaportal
 
     public static function initialize($siteId = null)
     {
-        if (!$siteId) {
+        if (! $siteId) {
             $siteId = Sites::getActive();
         }
 
@@ -48,7 +48,7 @@ class Montaportal
 
     public static function createProduct(Product $product)
     {
-        if (!$product->ean) {
+        if (! $product->ean) {
             dump('no ean');
 
             return false;
@@ -88,7 +88,7 @@ class Montaportal
                     'Barcodes' => [$product->ean],
                 ]);
 
-                if (!$response->Sku) {
+                if (! $response->Sku) {
                     Mails::sendNotificationToAdmins('Product #' . $product->id . ' failed to push to Montapackage');
                 } else {
                     $montaportalProduct = new montaportalProduct();
@@ -109,7 +109,7 @@ class Montaportal
 
     public static function updateProduct(Product $product): bool
     {
-        if (!$product->montaportalProduct) {
+        if (! $product->montaportalProduct) {
             return false;
         }
 
@@ -139,7 +139,7 @@ class Montaportal
                 if (in_array($product->ean, $montaProduct->Barcodes)) {
                     $montaProductIsValid = true;
                 }
-                if (!$montaProductIsValid) {
+                if (! $montaProductIsValid) {
                     $product->montaportalProduct->delete();
                     $product->refresh();
                     $success = self::createProduct($product);
@@ -155,7 +155,7 @@ class Montaportal
                 foreach ($montaProduct->Barcodes as $barcode) {
                     $barcodes[] = $barcode;
                 }
-                if (!in_array($product->ean, $barcodes)) {
+                if (! in_array($product->ean, $barcodes)) {
                     $barcodes[] = $product->ean;
                 }
 
@@ -166,12 +166,12 @@ class Montaportal
                 } catch (Exception $e) {
                     $response = null;
                 }
-                if (!$response) {
+                if (! $response) {
                     //                dd($montaProduct, $barcodes);
                 }
 
                 foreach ($barcodes as $barcode) {
-                    if (!$response) {
+                    if (! $response) {
                         try {
                             $response = $apiClient->updateProduct($barcode, [
                                 'Barcodes' => $barcodes,
@@ -181,7 +181,7 @@ class Montaportal
                     }
                 }
 
-                if (!$response) {
+                if (! $response) {
                     try {
                         $response = $apiClient->updateProduct($product->sku, [
                             'Barcodes' => $barcodes,
@@ -190,7 +190,7 @@ class Montaportal
                     }
                 }
 
-                if (!($response->Sku ?? false)) {
+                if (! ($response->Sku ?? false)) {
                 } else {
                     $product->montaportalProduct->montaportal_id = $response->Sku;
                     $product->montaportalProduct->save();
@@ -214,7 +214,7 @@ class Montaportal
 
     public static function syncProductStock(Product $product)
     {
-        if (!$product->montaportalProduct || !$product->montaportalProduct->sync_stock) {
+        if (! $product->montaportalProduct || ! $product->montaportalProduct->sync_stock) {
             return;
         }
 
@@ -232,7 +232,7 @@ class Montaportal
 
     public static function deleteProduct(Product $product)
     {
-        if (!$product->montaportalProduct) {
+        if (! $product->montaportalProduct) {
             return;
         }
 
@@ -312,7 +312,7 @@ class Montaportal
 
     public static function updateOrder(Order $order): void
     {
-        if ($order->fulfillment_status == 'handled' || !$order->montaPortalOrder || !$order->montaPortalOrder->montaportal_id) {
+        if ($order->fulfillment_status == 'handled' || ! $order->montaPortalOrder || ! $order->montaPortalOrder->montaportal_id) {
             return;
         }
 
@@ -326,7 +326,7 @@ class Montaportal
         } catch (Exception $e) {
             return;
         }
-        if (!$efulfillmentOrder->Shipped) {
+        if (! $efulfillmentOrder->Shipped) {
             $allOrdersShipped = false;
         }
 
@@ -341,7 +341,7 @@ class Montaportal
                 } catch (Exception $e) {
                     return;
                 }
-                if (!$efulfillmentOrder->Shipped) {
+                if (! $efulfillmentOrder->Shipped) {
                     $allOrdersShipped = false;
                 }
                 if ($efulfillmentOrder->DeliveryStatusCode != 'Delivered') {
@@ -350,7 +350,7 @@ class Montaportal
             }
         }
 
-        if ($allOrdersShipped && !$allOrdersDelivered) {
+        if ($allOrdersShipped && ! $allOrdersDelivered) {
             $order->changeFulfillmentStatus('shipped');
         } elseif ($allOrdersShipped && $allOrdersDelivered) {
             $order->changeFulfillmentStatus('handled');
@@ -379,15 +379,15 @@ class Montaportal
             $allProductsPushedToEfulfillment = true;
             $missingProducts = [];
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
-                if (!$orderProduct->product->is_bundle) {
-                    if (!$orderProduct->product->montaportalProduct) {
+                if (! $orderProduct->product->is_bundle) {
+                    if (! $orderProduct->product->montaportalProduct) {
                         $allProductsPushedToEfulfillment = false;
                         $missingProducts[] = $orderProduct->name . ' (' . $orderProduct->id . ')';
                     }
                 }
             }
 
-            if (!$allProductsPushedToEfulfillment) {
+            if (! $allProductsPushedToEfulfillment) {
                 Mails::sendNotificationToAdmins('Order #' . $montaPortalOrder->order->id . ' failed to push to Montaportal because not all products are pushed to Montaportal');
                 $montaPortalOrder->pushed_to_montaportal = 2;
                 $montaPortalOrder->error = 'Not all products are pushed to Montaportal: ' . implode(', ', $missingProducts);
@@ -401,7 +401,7 @@ class Montaportal
             $hasAllProductsPushedToMonta = true;
 
             foreach ($montaPortalOrder->order->orderProductsWithProduct as $orderProduct) {
-                if (!$orderProduct->product->is_bundle) {
+                if (! $orderProduct->product->is_bundle) {
                     if ($orderProduct->is_pre_order && $orderProduct->pre_order_restocked_date && Carbon::parse($orderProduct->pre_order_restocked_date) > Carbon::now()->endOfDay()) {
                         //                        dd($orderProduct->product);
                         $preOrderedOrderedProducts[] = [
@@ -410,7 +410,7 @@ class Montaportal
                             'preOrderDate' => Carbon::parse($orderProduct->pre_order_restocked_date)->format('d-m-Y'),
                         ];
                     } else {
-                        if (!$orderProduct->product->montaportalProduct) {
+                        if (! $orderProduct->product->montaportalProduct) {
                             dump($orderProduct->product->name . ' not pushed to montaportal');
                             $hasAllProductsPushedToMonta = false;
                         } else {
@@ -423,7 +423,7 @@ class Montaportal
                 }
             }
 
-            if (!$hasAllProductsPushedToMonta) {
+            if (! $hasAllProductsPushedToMonta) {
                 return false;
             }
 
