@@ -20,7 +20,7 @@ class MontaportalProductResource extends Resource
     protected static ?string $model = MontaportalProduct::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
-    protected static ?string $navigationGroup = 'E-commerce';
+    protected static ?string $navigationGroup = 'Producten';
     protected static ?string $navigationLabel = 'Montaportal producten';
     protected static ?string $label = 'Montaportal product';
     protected static ?string $pluralLabel = 'Montaportal producten';
