@@ -43,7 +43,6 @@ class PushProductsToMontaportal extends Command
         $products = Product::thisSite()
             ->where('sku', '!=', null)
             ->where('price', '!=', null)
-            ->notParentProduct()
             ->isNotBundle()
             ->where('fulfillment_provider', 'montaportal')
             ->get();
