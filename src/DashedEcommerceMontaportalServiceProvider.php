@@ -2,7 +2,6 @@
 
 namespace Dashed\DashedEcommerceMontaportal;
 
-use Dashed\DashedCore\DashedCorePlugin;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Illuminate\Console\Scheduling\Schedule;
