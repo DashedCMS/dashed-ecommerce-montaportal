@@ -2,6 +2,7 @@
 
 namespace Dashed\DashedEcommerceMontaportal;
 
+use Dashed\DashedCore\DashedCorePlugin;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Illuminate\Console\Scheduling\Schedule;
@@ -113,5 +114,9 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
                 UpdateOrderTrackAndTraceFromMontaportalCommand::class,
                 SyncUnconnectedMontaportalOrders::class,
             ]);
+
+        cms()->builder('plugins', [
+            new DashedEcommerceMontaportalPlugin(),
+        ]);
     }
 }
