@@ -69,17 +69,7 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        cms()->builder(
-            'settingPages',
-            array_merge(cms()->builder('settingPages'), [
-                'montaportal' => [
-                    'name' => 'Montaportal',
-                    'description' => 'Koppel Montaportal aan je bestellingen',
-                    'icon' => 'archive-box',
-                    'page' => MontaportalSettingsPage::class,
-                ],
-            ])
-        );
+        cms()->registerSettingsPage(MontaportalSettingsPage::class, 'Montaportal', 'archive-box', 'Koppel Montaportal aan je bestellingen');
 
         ecommerce()->widgets(
             'orders',
