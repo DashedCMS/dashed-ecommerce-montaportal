@@ -39,7 +39,7 @@ class PushProductsToMontaportal extends Command
      */
     public function handle()
     {
-        //        if (env('APP_ENV') != 'local') {
+        //        if (app()->isProduction()) {
         $products = Product::thisSite()
             ->where('sku', '!=', null)
             ->where('price', '!=', null)

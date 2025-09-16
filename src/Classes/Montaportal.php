@@ -451,7 +451,7 @@ class Montaportal
                     'notes' => 'No notes',
                     'lines' => $orderProducts,
                     'ProformaInvoiceUrl' => null,
-//                    'ProformaInvoiceUrl' => env('APP_ENV') == 'local' ? null : $montaPortalOrder->order->downloadInvoiceUrl(),
+//                    'ProformaInvoiceUrl' => app()->isLocal() ? null : $montaPortalOrder->order->downloadInvoiceUrl(),
                 ];
 
                 if ($debug) {
@@ -491,7 +491,7 @@ class Montaportal
                         'notes' => 'No notes',
                         'lines' => $orderProducts,
                         'ProformaInvoiceUrl' => null,
-//                        'ProformaInvoiceUrl' => env('APP_ENV') == 'local' ? null : $montaPortalOrder->order->downloadInvoiceUrl(),
+//                        'ProformaInvoiceUrl' => app()->isLocal() ? null : $montaPortalOrder->order->downloadInvoiceUrl(),
                     ];
 
                     if ($debug) {

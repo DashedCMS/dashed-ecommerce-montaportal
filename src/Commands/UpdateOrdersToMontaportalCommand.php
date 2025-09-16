@@ -39,7 +39,7 @@ class UpdateOrdersToMontaportalCommand extends Command
      */
     public function handle()
     {
-        //        if (env('APP_ENV') != 'local') {
+        //        if (app()->isProduction()) {
         $orders = Order::isPaid()->where('fulfillment_status', '!=', 'handled')->with(['montaPortalOrder'])->get();
         foreach ($orders as $order) {
             Montaportal::updateOrder($order);
