@@ -21,6 +21,7 @@
         "qubiqx/montapacking": "^2.0"
     },
     "require-dev": {
+        "filament/upgrade": "^4.0",
         "friendsofphp/php-cs-fixer": "^3.63",
         "orchestra/testbench": "^9",
         "pestphp/pest": "^2.35",

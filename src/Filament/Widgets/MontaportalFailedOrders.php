@@ -2,7 +2,7 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Filament\Widgets;
 
-use Filament\Tables\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -12,6 +12,7 @@ use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
 class MontaportalFailedOrders extends BaseWidget
 {
     protected int|string|array $columnSpan = 2;
+    protected static ?int $sort = 1000000;
 
     public function getTableHeading(): string
     {

@@ -2,15 +2,17 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Filament\Resources;
 
-use Filament\Forms\Form;
+use UnitEnum;
+use BackedEnum;
 use Filament\Tables\Table;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\Placeholder;
+use Filament\Schemas\Components\Section;
 use Filament\Tables\Columns\BooleanColumn;
+use Filament\Infolists\Components\TextEntry;
 use Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct;
 use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\EditMontaportalProduct;
 use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResource\Pages\ListMontaportalProducts;
@@ -19,21 +21,21 @@ class MontaportalProductResource extends Resource
 {
     protected static ?string $model = MontaportalProduct::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
-    protected static ?string $navigationGroup = 'Producten';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-shopping-bag';
+    protected static string|UnitEnum|null $navigationGroup = 'Producten';
     protected static ?string $navigationLabel = 'Montaportal producten';
     protected static ?string $label = 'Montaportal product';
     protected static ?string $pluralLabel = 'Montaportal producten';
     protected static ?int $navigationSort = 10;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
-                Card::make()
+                Section::make()->columnSpanFull()
                     ->schema([
-                        Placeholder::make('')
-                            ->content(fn ($record) => 'Bewerk instellingen voor Montaportal voor product ' . $record->product->name),
+                        TextEntry::make('')
+                            ->state(fn ($record) => 'Bewerk instellingen voor Montaportal voor product ' . $record->product->name),
                         Toggle::make('sync_stock')
                             ->label('Sync voorraad'),
                     ]),
