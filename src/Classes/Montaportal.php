@@ -2,6 +2,7 @@
 
 namespace Dashed\DashedEcommerceMontaportal\Classes;
 
+use Dashed\DashedEcommerceCore\Classes\Countries;
 use Exception;
 use Carbon\Carbon;
 use Qubiqx\Montapacking\Client;
@@ -442,8 +443,8 @@ class Montaportal
                             'HouseNumber' => $montaPortalOrder->order->house_nr,
                             'City' => $montaPortalOrder->order->city,
                             'PostalCode' => $montaPortalOrder->order->zip_code,
-//                            'CountryCode' => Countries::getCountryIsoCode($order->country) ?: 'NL',
-                            'CountryCode' => $montaPortalOrder->order->country,
+                            'CountryCode' => Countries::getCountryIsoCode($montaPortalOrder->order->country) ?: 'NL',
+//                            'CountryCode' => $montaPortalOrder->order->country,
                             'EmailAddress' => $montaPortalOrder->order->email,
                         ],
                         'B2b' => false,
@@ -481,7 +482,8 @@ class Montaportal
                                 'HouseNumber' => $montaPortalOrder->order->house_nr,
                                 'City' => $montaPortalOrder->order->city,
                                 'PostalCode' => $montaPortalOrder->order->zip_code,
-                                'CountryCode' => $montaPortalOrder->order->country,
+//                                'CountryCode' => $montaPortalOrder->order->country,
+                                'CountryCode' => Countries::getCountryIsoCode($montaPortalOrder->order->country) ?: 'NL',
                                 'EmailAddress' => $montaPortalOrder->order->email,
                             ],
                             'B2b' => false,
