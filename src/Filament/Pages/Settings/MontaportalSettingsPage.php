@@ -42,7 +42,7 @@ class MontaportalSettingsPage extends Page
 
         $tabs = [];
         foreach ($sites as $site) {
-            $schema = [
+            $newSchema = [
                 TextEntry::make('label')
                     ->state("Montaportal voor {$site['name']}")
                     ->state('Activeer Montaportal om de bestellingen te versturen.')
@@ -70,7 +70,7 @@ class MontaportalSettingsPage extends Page
 
             $tabs[] = Tab::make($site['id'])
                 ->label(ucfirst($site['name']))
-                ->schema($schema)
+                ->schema($newSchema)
                 ->columns([
                     'default' => 1,
                     'lg' => 2,
