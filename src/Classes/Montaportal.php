@@ -436,7 +436,7 @@ class Montaportal
             if ($orderProducts) {
                 $data = [
                     'WebshopOrderId' => $montaPortalOrder->order->invoice_id,
-                    'origin' => url('/'),
+                    'Origin' => Customsetting::get('montaportal_origin'),
                     'ConsumerDetails' => [
                         'DeliveryAddress' => [
                             'LastName' => $montaPortalOrder->order->name,
@@ -476,7 +476,7 @@ class Montaportal
                     $efulfillmentPreOrderIds[] = $orderId;
                     $data = [
                         'WebshopOrderId' => $orderId,
-                        'origin' => url('/'),
+                        'Origin' => Customsetting::get('montaportal_origin'),
                         'ConsumerDetails' => [
                             'DeliveryAddress' => [
                                 'LastName' => $montaPortalOrder->order->name,

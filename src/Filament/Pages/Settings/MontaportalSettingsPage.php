@@ -29,6 +29,7 @@ class MontaportalSettingsPage extends Page
             $formData["montaportal_username_{$site['id']}"] = Customsetting::get('montaportal_username', $site['id']);
             $formData["montaportal_password_{$site['id']}"] = Customsetting::get('montaportal_password', $site['id']);
             $formData["montaportal_connected_{$site['id']}"] = Customsetting::get('montaportal_connected', $site['id'], 0) ? true : false;
+            $formData["montaportal_origin_{$site['id']}"] = Customsetting::get('montaportal_origin', $site['id']);
         }
 
         $this->form->fill($formData);
@@ -62,6 +63,9 @@ class MontaportalSettingsPage extends Page
                     ->label('Wachtwoord')
                     ->type('password')
                     ->maxLength(255),
+                TextInput::make("montaportal_origin_{$site['id']}")
+                    ->label('Origin')
+                    ->maxLength(255),
             ];
 
             $tabs[] = Tab::make($site['id'])
@@ -86,6 +90,7 @@ class MontaportalSettingsPage extends Page
         foreach ($sites as $site) {
             Customsetting::set('montaportal_username', $this->form->getState()["montaportal_username_{$site['id']}"], $site['id']);
             Customsetting::set('montaportal_password', $this->form->getState()["montaportal_password_{$site['id']}"], $site['id']);
+            Customsetting::set('montaportal_origin', $this->form->getState()["montaportal_origin_{$site['id']}"], $site['id']);
             Customsetting::set('montaportal_connected', Montaportal::isConnected($site['id']), $site['id']);
         }
 
