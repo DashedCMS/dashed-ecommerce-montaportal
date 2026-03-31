@@ -3,11 +3,11 @@
 namespace Dashed\DashedEcommerceMontaportal;
 
 use Livewire\Livewire;
+use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelPackageTools\Package;
 use Illuminate\Console\Scheduling\Schedule;
 use Dashed\DashedEcommerceCore\Models\Order;
 use Dashed\DashedEcommerceCore\Models\Product;
-use Dashed\DashedCore\Support\MeasuresServiceProvider;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 use Dashed\DashedEcommerceMontaportal\Models\MontaportalOrder;
@@ -25,12 +25,10 @@ use Dashed\DashedEcommerceMontaportal\Commands\UpdateOrderTrackAndTraceFromMonta
 
 class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
 {
-    use MeasuresServiceProvider;
     public static string $name = 'dashed-ecommerce-montaportal';
 
     public function bootingPackage()
     {
-        $this->logProviderMemory('bootingPackage:start');
         Livewire::component('show-montaportal-order', ShowMontaportalOrder::class);
         Livewire::component('edit-montaportal-product', EditMontaportalProduct::class);
 
@@ -66,12 +64,17 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
                 ->everyMinute()
                 ->withoutOverlapping();
         });
-        $this->logProviderMemory('bootingPackage:end');
+        Gate::policy(\Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct::class, \Dashed\DashedEcommerceMontaportal\Policies\MontaportalProductPolicy::class);
+
+        cms()->registerRolePermissions('Integraties', [
+            'view_montaportal_product' => 'Montaportal producten bekijken',
+            'edit_montaportal_product' => 'Montaportal producten bewerken',
+            'delete_montaportal_product' => 'Montaportal producten verwijderen',
+        ]);
     }
 
     public function configurePackage(Package $package): void
     {
-        $this->logProviderMemory('configurePackage:start');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         cms()->registerSettingsPage(MontaportalSettingsPage::class, 'Montaportal', 'archive-box', 'Koppel Montaportal aan je bestellingen');
@@ -112,6 +115,5 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
         cms()->builder('plugins', [
             new DashedEcommerceMontaportalPlugin(),
         ]);
-        $this->logProviderMemory('configurePackage:end');
     }
 }

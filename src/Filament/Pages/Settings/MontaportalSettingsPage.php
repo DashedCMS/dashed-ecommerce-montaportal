@@ -11,10 +11,13 @@ use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Tabs\Tab;
 use Dashed\DashedCore\Models\Customsetting;
 use Filament\Infolists\Components\TextEntry;
+use Dashed\DashedCore\Traits\HasSettingsPermission;
 use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 
 class MontaportalSettingsPage extends Page
 {
+    use HasSettingsPermission;
+
     protected static bool $shouldRegisterNavigation = false;
     protected static ?string $title = 'Montaportal shop';
 
