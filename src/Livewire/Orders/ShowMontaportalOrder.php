@@ -24,21 +24,21 @@ class ShowMontaportalOrder extends Component
         if (! $this->order->montaPortalOrder) {
             Notification::make()
                 ->danger()
-                ->title('De bestelling mag niet naar Montaportal gepushed worden.')
+                ->title(__('De bestelling mag niet naar Montaportal gepushed worden.'))
                 ->send();
 
             return;
         } elseif ($this->order->montaPortalOrder->pushed_to_montaportal == 1) {
             Notification::make()
                 ->danger()
-                ->title('De bestelling is al naar Montaportal gepushed.')
+                ->title(__('De bestelling is al naar Montaportal gepushed.'))
                 ->send();
 
             return;
         } elseif ($this->order->montaPortalOrder->pushed_to_montaportal == 0) {
             Notification::make()
                 ->danger()
-                ->title('De bestelling wordt al naar Montaportal gepushed.')
+                ->title(__('De bestelling wordt al naar Montaportal gepushed.'))
                 ->send();
 
             return;
@@ -50,7 +50,7 @@ class ShowMontaportalOrder extends Component
         $this->dispatch('refreshPage');
         Notification::make()
             ->success()
-            ->title('De bestelling wordt binnen enkele minuten opnieuw naar Montaportal gepushed.')
+            ->title(__('De bestelling wordt binnen enkele minuten opnieuw naar Montaportal gepushed.'))
             ->send();
     }
 
@@ -59,7 +59,7 @@ class ShowMontaportalOrder extends Component
         if ($this->order->montaPortalOrder) {
             Notification::make()
                 ->danger()
-                ->title('De bestelling is al aan Montaportal gekoppeld.')
+                ->title(__('De bestelling is al aan Montaportal gekoppeld.'))
                 ->send();
 
             return;
@@ -70,7 +70,7 @@ class ShowMontaportalOrder extends Component
         $this->dispatch('refreshPage');
         Notification::make()
             ->success()
-            ->title('De bestelling wordt binnen enkele minuten naar Montaportal gepushed.')
+            ->title(__('De bestelling wordt binnen enkele minuten naar Montaportal gepushed.'))
             ->send();
     }
 
@@ -79,7 +79,7 @@ class ShowMontaportalOrder extends Component
         if (! $this->order->montaPortalOrder) {
             Notification::make()
                 ->danger()
-                ->title('De bestelling is al uit Montaportal verwijderd.')
+                ->title(__('De bestelling is al uit Montaportal verwijderd.'))
                 ->send();
 
             return;
@@ -88,7 +88,7 @@ class ShowMontaportalOrder extends Component
         if ($this->order->montaPortalOrder->pushed_to_montaportal == 1) {
             Notification::make()
                 ->danger()
-                ->title('De bestelling is al naar Montaportal gepushed.')
+                ->title(__('De bestelling is al naar Montaportal gepushed.'))
                 ->send();
 
             return;
@@ -99,7 +99,7 @@ class ShowMontaportalOrder extends Component
         $this->dispatch('refreshPage');
         Notification::make()
             ->success()
-            ->title('De bestelling is uit Montaportal verwijderd.')
+            ->title(__('De bestelling is uit Montaportal verwijderd.'))
             ->send();
     }
 }

@@ -37,7 +37,7 @@ class MontaportalProductResource extends Resource
                         TextEntry::make('')
                             ->state(fn ($record) => 'Bewerk instellingen voor Montaportal voor product ' . $record->product->name),
                         Toggle::make('sync_stock')
-                            ->label('Sync voorraad'),
+                            ->label(__('Sync voorraad')),
                     ]),
             ]);
     }
@@ -47,11 +47,11 @@ class MontaportalProductResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('product.name')
-                    ->label('Naam')
+                    ->label(__('Naam'))
                     ->searchable()
                     ->sortable(),
                 BooleanColumn::make('sync_stock')
-                    ->label('Sync voorraad'),
+                    ->label(__('Sync voorraad')),
 
             ])
             ->filters([

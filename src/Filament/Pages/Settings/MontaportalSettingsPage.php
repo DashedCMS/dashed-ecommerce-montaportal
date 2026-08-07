@@ -60,14 +60,14 @@ class MontaportalSettingsPage extends Page
                         'lg' => 2,
                     ]),
                 TextInput::make("montaportal_username_{$site['id']}")
-                    ->label('Gebruikersnaam')
+                    ->label(__('Gebruikersnaam'))
                     ->maxLength(255),
                 TextInput::make("montaportal_password_{$site['id']}")
-                    ->label('Wachtwoord')
+                    ->label(__('Wachtwoord'))
                     ->type('password')
                     ->maxLength(255),
                 TextInput::make("montaportal_origin_{$site['id']}")
-                    ->label('Origin')
+                    ->label(__('Origin'))
                     ->maxLength(255),
             ];
 
@@ -98,7 +98,7 @@ class MontaportalSettingsPage extends Page
         }
 
         Notification::make()
-            ->title('De Montaportal instellingen zijn opgeslagen')
+            ->title(__('De Montaportal instellingen zijn opgeslagen'))
             ->success()
             ->send();
 

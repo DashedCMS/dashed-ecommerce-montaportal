@@ -28,13 +28,13 @@ class MontaportalFailedOrders extends BaseWidget
     {
         return [
             TextColumn::make('order.name')
-                ->label('Naam'),
+                ->label(__('Naam')),
             TextColumn::make('order.email')
-                ->label('Email'),
+                ->label(__('Email')),
             TextColumn::make('created_at')
-                ->label('Aangemaakt op'),
+                ->label(__('Aangemaakt op')),
             TextColumn::make('error')
-                ->label('Fout'),
+                ->label(__('Fout')),
         ];
     }
 
@@ -42,7 +42,7 @@ class MontaportalFailedOrders extends BaseWidget
     {
         return [
             Action::make('view_order')
-                ->label('Bekijk bestelling')
+                ->label(__('Bekijk bestelling'))
                 ->button()
                 ->url(fn ($record) => route('filament.dashed.resources.orders.view', [$record->order_id])),
         ];
