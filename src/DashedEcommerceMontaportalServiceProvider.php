@@ -166,6 +166,7 @@ MARKDOWN,
 
         $package
             ->name('dashed-ecommerce-montaportal')
+            ->hasTranslations()
             ->hasViews()
             ->hasCommands([
                 DeleteMontaportalProducts::class,
