@@ -19,6 +19,8 @@ use Dashed\DashedEcommerceMontaportal\Filament\Resources\MontaportalProductResou
 
 class MontaportalProductResource extends Resource
 {
+    use \Dashed\DashedCore\Filament\Concerns\TranslatesResourceLabels;
+
     protected static ?string $model = MontaportalProduct::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-shopping-bag';
