@@ -1,1 +1,25 @@
-{}
+{
+    "Aangemaakt op": "Created at",
+    "Bekijk bestelling": "View order",
+    "De bestelling is al aan Montaportal gekoppeld.": "The order is already linked to Montaportal.",
+    "De bestelling is al naar Montaportal gepushed.": "The order has already been pushed to Montaportal.",
+    "De bestelling is al uit Montaportal verwijderd.": "The order has already been removed from Montaportal.",
+    "De bestelling is uit Montaportal verwijderd.": "The order has been removed from Montaportal.",
+    "De bestelling mag niet naar Montaportal gepushed worden.": "The order may not be pushed to Montaportal.",
+    "De bestelling wordt al naar Montaportal gepushed.": "The order is already being pushed to Montaportal.",
+    "De bestelling wordt binnen enkele minuten naar Montaportal gepushed.": "The order will be pushed to Montaportal within a few minutes.",
+    "De bestelling wordt binnen enkele minuten opnieuw naar Montaportal gepushed.": "The order will be pushed to Montaportal again within a few minutes.",
+    "De Montaportal instellingen zijn opgeslagen": "The Montaportal settings have been saved",
+    "Email": "Email",
+    "Fout": "Error",
+    "Gebruikersnaam": "Username",
+    "Koppel Montaportal aan je bestellingen": "Connect Montaportal to your orders",
+    "Montaportal": "Montaportal",
+    "Montaportal product": "Montaportal product",
+    "Montaportal producten": "Montaportal products",
+    "Montaportal shop": "Montaportal shop",
+    "Naam": "Name",
+    "Origin": "Origin",
+    "Sync voorraad": "Sync stock",
+    "Wachtwoord": "Password"
+}
