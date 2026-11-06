@@ -41,7 +41,7 @@ class PushOrdersToMontaportalCommand extends Command
     {
         //        if (app()->isProduction()) {
         //        MontaportalOrder::where('error', 'LIKE', '%An order with that Webshop Order ID already exists%')->delete();
-        $montaPortalOrders = MontaportalOrder::where('pushed_to_montaportal', '!=', 1)->with(['order'])->get();
+        $montaPortalOrders = MontaportalOrder::where('pushed_to_montaportal', '!=', 1)->whereHas('order')->with(['order'])->get();
         $this->info('Orders to push: ' . $montaPortalOrders->count());
         foreach ($montaPortalOrders as $montaPortalOrder) {
             $this->info('Pushing order: ' . $montaPortalOrder->order->id);

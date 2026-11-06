@@ -40,7 +40,7 @@ class UpdateOrderTrackAndTraceFromMontaportalCommand extends Command
     public function handle()
     {
         //        if (app()->isProduction()) {
-        $montaportalOrders = MontaportalOrder::where('pushed_to_montaportal', 1)->where('track_and_trace_present', '!=', 1)->get();
+        $montaportalOrders = MontaportalOrder::where('pushed_to_montaportal', 1)->where('track_and_trace_present', '!=', 1)->whereHas('order')->get();
         foreach ($montaportalOrders as $montaportalOrder) {
             Montaportal::updateTrackandTrace($montaportalOrder);
         }
