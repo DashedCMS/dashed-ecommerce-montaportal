@@ -44,24 +44,33 @@ class DashedEcommerceMontaportalServiceProvider extends PackageServiceProvider
             $schedule = app(Schedule::class);
             $schedule->command(DeleteMontaportalProducts::class)
                 ->everyFiveMinutes()
+                ->when(fn () => \Dashed\DashedEcommerceMontaportal\Classes\Montaportal::hasOrphanedProducts())
                 ->withoutOverlapping();
+            // Alleen producten en barcodes, geen voorraad: een kwartier is genoeg.
             $schedule->command(PushProductsToMontaportal::class)
-                ->everyFiveMinutes()
+                ->everyFifteenMinutes()
+                ->when(fn () => \Dashed\DashedEcommerceMontaportal\Classes\Montaportal::hasProductsToPush())
                 ->withoutOverlapping();
+            // Blijft op vijf minuten: dit is de voorraad die de webshop verkoopt.
             $schedule->command(SyncProductStockWithMontaportal::class)
                 ->everyFiveMinutes()
+                ->when(fn () => \Dashed\DashedEcommerceMontaportal\Classes\Montaportal::hasStockToSync())
                 ->withoutOverlapping();
             $schedule->command(PushOrdersToMontaportalCommand::class)
                 ->everyFiveMinutes()
+                ->when(fn () => \Dashed\DashedEcommerceMontaportal\Classes\Montaportal::hasOrdersToPush())
                 ->withoutOverlapping();
             $schedule->command(UpdateOrderTrackAndTraceFromMontaportalCommand::class)
                 ->everyFifteenMinutes()
+                ->when(fn () => \Dashed\DashedEcommerceMontaportal\Classes\Montaportal::hasTrackAndTraceToUpdate())
                 ->withoutOverlapping();
             $schedule->command(UpdateOrdersToMontaportalCommand::class)
                 ->everyFifteenMinutes()
+                ->when(fn () => \Dashed\DashedEcommerceMontaportal\Classes\Montaportal::hasOrdersToUpdate())
                 ->withoutOverlapping();
             $schedule->command(SyncUnconnectedMontaportalOrders::class)
                 ->everyMinute()
+                ->when(fn () => \Dashed\DashedEcommerceMontaportal\Classes\Montaportal::hasUnconnectedOrders())
                 ->withoutOverlapping();
         });
         Gate::policy(\Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct::class, \Dashed\DashedEcommerceMontaportal\Policies\MontaportalProductPolicy::class);

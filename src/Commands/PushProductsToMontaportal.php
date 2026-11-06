@@ -3,7 +3,6 @@
 namespace Dashed\DashedEcommerceMontaportal\Commands;
 
 use Illuminate\Console\Command;
-use Dashed\DashedEcommerceCore\Models\Product;
 use Dashed\DashedEcommerceMontaportal\Classes\Montaportal;
 
 class PushProductsToMontaportal extends Command
@@ -40,12 +39,7 @@ class PushProductsToMontaportal extends Command
     public function handle()
     {
         //        if (app()->isProduction()) {
-        $products = Product::thisSite()
-            ->where('sku', '!=', null)
-            ->where('price', '!=', null)
-            ->isNotBundle()
-            ->where('fulfillment_provider', 'montaportal')
-            ->get();
+        $products = Montaportal::productsQuery()->get();
 
         foreach ($products as $product) {
             $success = Montaportal::createProduct($product);

@@ -23,6 +23,84 @@ use Dashed\DashedEcommerceMontaportal\Models\montaportalProduct;
 
 class Montaportal
 {
+    /** Geen verzoek aan Monta: isConnected() doet per aanroep een health-check. */
+    public static function hasCredentials(?string $siteId = null): bool
+    {
+        $siteId ??= Sites::getActive();
+
+        return Customsetting::get('montaportal_username', $siteId) && Customsetting::get('montaportal_password', $siteId);
+    }
+
+    /** De producten die push-products en sync-product-stock langslopen. */
+    public static function productsQuery()
+    {
+        return Product::thisSite()
+            ->where('sku', '!=', null)
+            ->where('price', '!=', null)
+            ->isNotBundle()
+            ->where('fulfillment_provider', 'montaportal');
+    }
+
+    public static function hasProductsToPush(): bool
+    {
+        return rescue(fn () => self::hasCredentials() && self::productsQuery()->exists(), true, false);
+    }
+
+    public static function hasStockToSync(): bool
+    {
+        return rescue(
+            fn () => self::hasCredentials() && self::productsQuery()
+                ->whereHas('montaportalProduct', fn ($query) => $query->where('sync_stock', true))
+                ->exists(),
+            true,
+            false,
+        );
+    }
+
+    public static function hasOrdersToPush(): bool
+    {
+        return rescue(fn () => self::hasCredentials() && MontaportalOrder::where('pushed_to_montaportal', '!=', 1)->exists(), true, false);
+    }
+
+    public static function hasUnconnectedOrders(): bool
+    {
+        return rescue(
+            fn () => self::hasCredentials() && Order::where('created_at', '>=', now()->subMinutes(5))
+                ->isPaid()
+                ->whereDoesntHave('montaPortalOrder')
+                ->exists(),
+            true,
+            false,
+        );
+    }
+
+    public static function hasOrdersToUpdate(): bool
+    {
+        return rescue(
+            fn () => self::hasCredentials() && Order::isPaid()
+                ->where('fulfillment_status', '!=', 'handled')
+                ->whereHas('montaPortalOrder', fn ($query) => $query->whereNotNull('montaportal_id'))
+                ->exists(),
+            true,
+            false,
+        );
+    }
+
+    public static function hasTrackAndTraceToUpdate(): bool
+    {
+        return rescue(
+            fn () => self::hasCredentials() && MontaportalOrder::where('pushed_to_montaportal', 1)->where('track_and_trace_present', '!=', 1)->exists(),
+            true,
+            false,
+        );
+    }
+
+    public static function hasOrphanedProducts(): bool
+    {
+        // Volledig gekwalificeerd: de use-regel hierboven heeft een afwijkende hoofdletter.
+        return rescue(fn () => \Dashed\DashedEcommerceMontaportal\Models\MontaportalProduct::whereDoesntHave('product')->exists(), true, false);
+    }
+
     public static function isConnected($siteId = null)
     {
         if (! $siteId) {
